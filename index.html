@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Easy Glitch</title>
-	</head>
-	<body>
-	</body>
+<head>
+	<title>Easy Glitch v0</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div id="main">
+		<div id="display"></div>
+		<div id="controls">
+			<!--
+			Radio Layers
+				Base
+				Alpha
+				Sampled Alpha
+				Render
+			Tools:
+				Glitch ∆
+				Color Glitch ∆
+				Reset
+				Curve (calls rerender with new random samples)
+				Rerender (requires save of all sampled deltas in their order to draw in array of Instructions)
+					[{sqSize,sX,sY,dX,dY,colorAltObj}]
+					colorAltObj = {
+						R,G,B,
+						Y,Cb,Cr
+						H,S,V //All except H are {B,C,G}, H will have {dH,ha,hr1,hr2}
+					}
+
+				Save Image
+		-->
+		</div>
+	</div>
+	<script type="text/javascript" src="scripts.js"></script>
+	<script type="text/javascript">
+	var controls = document.getElementById("controls");
+	var display = document.getElementById("controls");
+	eG.init();
+	eG.setControls(control);
+	eG.setDisplay(display);
+	</script>
+</body>
 </html>
