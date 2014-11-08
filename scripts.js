@@ -8,7 +8,7 @@ var eG = {
 	mouseDown:false,
 	startDraw:false,
 
-	defaultImg:,
+	defaultImg:"", //find this thing
 	init:function(){
 		this.baseimg = new Image();
 		this.aimg = new Image();
