@@ -1,1 +1,8 @@
 /*Style Sheet*/
+
+body {
+	background:#111;
+	color:white;
+	margin:0;
+	padding:0;
+}
