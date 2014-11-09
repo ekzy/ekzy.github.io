@@ -3,11 +3,67 @@
 var eG = {
 	sqSize:20,
 	sens:0.5,
-	controls:null, //dom element (assinged with on setControls)
+	controlNode:null, //dom element (assinged with on setControls)
 	display:null, //dom element (assigned with setDisplay)
 	mouseDown:false,
 	startDraw:false,
-	buttons:[],
+	controls:[{
+			section:"Layers",
+			inputs:[{
+				label:"Base",
+				method:this.showBase,
+				type:"radio"
+			},{
+				label:"Alpha",
+				method:this.showAlpha,
+				type:"radio"
+			},{
+				label:"Render",
+				method:this.showRender,
+				type:"radio"
+			}]
+		},{
+			section:"Parameters",
+			inputs:[{
+				label:"Tile Size",
+				method:this.setTileSize,
+				type:"text"
+			},{
+				label:"Threshold",
+				method:this.setThreshold,
+				type:"text"
+			},{
+				label:"X offset",
+				method:this.setXoffset,
+				type:"text",
+				alttext:"Set's glitch offset for glitch mode"
+			},{
+				label:"Y offset",
+				method:this.setYoffset,
+				type:"text"
+			},{
+				label:"Random Offset",
+				method:this.randomOffset,
+				type:"button"
+			},{
+				label:"Random Pen",
+				method:this.setDrawRandom,
+				type:"checkbox"
+			}]
+		},{
+			section:"Draw Mode",
+			inputs:[{
+				label:"Scramble",
+				method:this.setMode,
+				type:"radio",
+				value:"scramble"
+			},{
+				label:"Glitch",
+				method:this.setMode,
+				type:"radio",
+				value:"glitch"
+			}]
+		}],
 	defaultImg:"", //find this thing
 	init:function(){
 		this.baseimg = new Image();
@@ -27,13 +83,17 @@ var eG = {
 		this.canvas.onmousemove=this.strokeDraw;
 
 	},
+	img2Alpha:function(img,c){
+		c = (typeof c === "undefined")?"v":c; //makes c optional, uses v as alpha
+		//turns
+	},
 	setDisplay:function(obj){
 		this.display=obj;
 		this.display.appendChild(this.canvas);
 	},
 	setControls:function(obj){
-		this.controls=obj;
-		this.controls.innerHTML="";
+		this.controlNode=obj;
+		this.controlNode.innerHTML="";
 
 	},
 	drawRender:function(){
@@ -59,5 +119,34 @@ var eG = {
 			
 		}
 	},//Steve, you're going to put this on facebook, don't worry about having a custom website yet to promot the thing. GAHh x)
+	showBase:function(){
+		//draw currently saved base image to canvas
+	},
+	showAlpha:function(){
+		//draw currently saved alpha layer to canvas over base image
+	},
+	showRender:function(){
+		//draw curently saved render image to canvas
+	},
+	setTileSize:function(){
 
+	},
+	setThreshold:function(){
+
+	},
+	setXoffset:function(){
+
+	},
+	setYoffset:function(){
+
+	},
+	randomOffset:function(){
+
+	},
+	setDrawRandom:function(){
+
+	},
+	setMode:function(){
+
+	},
 }
