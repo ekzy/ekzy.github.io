@@ -32,8 +32,8 @@ var eG = {
 		this.display.appendChild(this.canvas);
 	},
 	setControls:function(obj){
-		this.control=obj;
-		this.control.innerHTML="";
+		this.controls=obj;
+		this.controls.innerHTML="";
 
 	},
 	drawRender:function(){
