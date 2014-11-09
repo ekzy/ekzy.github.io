@@ -7,7 +7,7 @@ var eG = {
 	display:null, //dom element (assigned with setDisplay)
 	mouseDown:false,
 	startDraw:false,
-
+	buttons:[],
 	defaultImg:"", //find this thing
 	init:function(){
 		this.baseimg = new Image();
@@ -33,6 +33,8 @@ var eG = {
 	},
 	setControls:function(obj){
 		this.control=obj;
+		this.control.innerHTML="";
+
 	},
 	drawRender:function(){
 		 //Draw the thingy accounrding the instructionnns
