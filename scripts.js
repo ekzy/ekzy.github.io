@@ -128,25 +128,29 @@ var eG = {
 	showRender:function(){
 		//draw curently saved render image to canvas
 	},
-	setTileSize:function(){
-
+	setTileSize:function(v){
+		this.sqSize=v;
+		return v;
 	},
-	setThreshold:function(){
-
+	setThreshold:function(v){
+		this.sens=v;
 	},
-	setXoffset:function(){
-
+	setXoffset:function(v){
+		this.offset[0]=v;
+		return v;
 	},
-	setYoffset:function(){
-
+	setYoffset:function(v){
+		this.offset[1]=v
+		return v;
 	},
 	randomOffset:function(){
-
+		var value = ""; //TODO: somekind of random value
+		return value;
 	},
-	setDrawRandom:function(){
-
+	setDrawRandom:function(v){
+		
 	},
-	setMode:function(){
+	setMode:function(m){
 
 	},
 }
