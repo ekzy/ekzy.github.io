@@ -83,6 +83,9 @@ var eG = {
 		this.canvas.onmousemove=this.strokeDraw;
 
 	},
+	setBaseImage:function(url){
+		url = (typeof c === "undefine")?this.defaultImg:url;
+	},
 	img2Alpha:function(img,c){
 		c = (typeof c === "undefined")?"v":c; //makes c optional, uses v as alpha
 		//turns
