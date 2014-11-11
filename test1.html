@@ -33,7 +33,7 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 		sx=randomInt(Math.floor(img.width/cSq)*cSq-cSq);
 		sy=randomInt(Math.floor(img.height/cSq)*cSq-cSq);
 		dx=Math.floor(e.layerX/cSq)*cSq;
-		dy=Math.floor(e.layerY/cSq)*cSq);
+		dy=Math.floor(e.layerY/cSq)*cSq;
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 	}
 }
