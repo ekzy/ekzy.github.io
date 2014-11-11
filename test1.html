@@ -4,7 +4,7 @@
 	<title>Test of mouse functionality</title>
 </head>
 <body>
-	<div id="status"></div>
+	<div id="status">#</div>
 	<canvas id="canvas" width="1024" height="768"></canvas>
 <script type="text/javascript">
 var status = document.getElementById("status");
@@ -17,7 +17,7 @@ img.onload=function(){
 }
 img.src="hk.jpg"
 sq=[1,2,4,5,10,15,20,25,50,75,100,200];
-cvs.onmousemove=function(e){
+window.onmousemove=function(e){
 	cxt.drawImage(img,0,0);
 	status.innerHTML=e.clientX.toString()+", "+e.clientY.toString();
 }
