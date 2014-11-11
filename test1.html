@@ -32,8 +32,8 @@ function randomInt(integer){
 cvs.onmousemove=cvs.onmousedown=function(e){
 	if(e.which===1){
 		cSq=randomItem(sq);
-		sx=randomInt(Math.floor(img.width/cSq)*cSq-cSq);
-		sy=randomInt(Math.floor(img.height/cSq)*cSq-cSq);
+		sx=Math.floor(randomInt(img.width)/cSq)*cSq-cSq;
+		sy=Math.floor(randomInt(img.height)/cSq)*cSq-cSq;
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
