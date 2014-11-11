@@ -5,8 +5,6 @@ var eG = {
 	sens:0.5,
 	controlNode:null, //dom element (assinged with on setControls)
 	display:null, //dom element (assigned with setDisplay)
-	mouseDown:false,
-	startDraw:false,
 	controls:[{
 			section:"Layers",
 			inputs:[{
@@ -72,21 +70,21 @@ var eG = {
 		this.canvas = document.createElement("canvas");
 		this.context = this.canvas.getContext("2d");
 		//register draw handling
-		document.body.onmousdown=function(){
-			eG.mouseDown=true;
-		};
-		document.body.onmouseup=function(){
-			eG.mouseDown=false;
-		}
-		this.canvas.onmouseenter=this.startStroke;
-		this.canvas.onmouseleave=this.stopStroke;
+		// document.body.onmousdown=function(){
+		// 	eG.mouseDown=true;
+		// };
+		// document.body.onmouseup=function(){
+		// 	eG.mouseDown=false;
+		// }
+		// this.canvas.onmouseenter=this.startStroke;
+		// this.canvas.onmouseleave=this.stopStroke;
 		this.canvas.onmousemove=this.strokeDraw;
 
 	},
 	setBaseImage:function(url){
 		url = (typeof c === "undefined")?this.defaultImg:url;
 		this.baseimg.onload=function(){
-			
+
 		}
 	},
 	img2Alpha:function(img,c){
@@ -113,16 +111,16 @@ var eG = {
 		this.C2R();
 		window.location.href=this.render.src;
 	},
-	strokeStart:function(e){
-		//on mouse down, call this function
-		this.startDraw=true;
-	},
-	strokeStop:function(e){
-		this.startDraw=false;
-	},
+	// strokeStart:function(e){
+	// 	//on mouse down, call this function
+	// 	this.startDraw=true;
+	// },
+	// strokeStop:function(e){
+	// 	this.startDraw=false;
+	// },
 	strokeDraw:function(e){
-		if(this.mouseDown){
-			
+		if(e.which===1){
+			//Start Drawing
 		}
 	},//Steve, you're going to put this on facebook, don't worry about having a custom website yet to promot the thing. GAHh x)
 	showBase:function(){
