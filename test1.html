@@ -39,6 +39,8 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 	}
 }
+cvs.addEventLister("touchstart",cvs.onmousemove,false);
+cvs.addEventLister("touchmove",cvs.onmousemove,false);
 </script>
 </body>
 </html>
