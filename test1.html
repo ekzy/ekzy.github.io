@@ -55,6 +55,15 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 
 cvs.addEventLister("touchstart",cvs.onmousemove,false);
 cvs.addEventLister("touchmove",cvs.onmousemove,false);
+
+function makeObama(){
+	img.src="obama.jpg";
+}
+function makeHK(){
+	img.src="hk.jpg";
+}
 </script>
+<a href="javascript:makeObama()">Use Obama Instead</a>
+<a href="javascript:makeHK()">Go Back to Honk Kong</a>
 </body>
 </html>
