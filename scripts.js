@@ -64,7 +64,7 @@ var eG = {
 				value:"glitch"
 			}]
 		}],
-	defaultImg:"", //find this thing
+	defaultImg:"hk.jpg", //find this thing
 	init:function(){
 		this.baseimg = new Image();
 		this.aimg = new Image();
@@ -84,7 +84,7 @@ var eG = {
 
 	},
 	setBaseImage:function(url){
-		url = (typeof c === "undefine")?this.defaultImg:url;
+		url = (typeof c === "undefined")?this.defaultImg:url;
 	},
 	img2Alpha:function(img,c){
 		c = (typeof c === "undefined")?"v":c; //makes c optional, uses v as alpha
