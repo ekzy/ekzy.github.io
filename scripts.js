@@ -85,6 +85,9 @@ var eG = {
 	},
 	setBaseImage:function(url){
 		url = (typeof c === "undefined")?this.defaultImg:url;
+		this.baseimg.onload=function(){
+			
+		}
 	},
 	img2Alpha:function(img,c){
 		c = (typeof c === "undefined")?"v":c; //makes c optional, uses v as alpha
