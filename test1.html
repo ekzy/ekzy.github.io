@@ -18,11 +18,23 @@ img.onload=function(){
 	cxt.drawImage(img,0,0);
 }
 img.src="hk.jpg"
-sq=[1,2,4,5,10,15,20,25,50,75,100,200];
+var sq=[1,2,4,5,10,15,20,25,50,75,100,200];
+var cSq,sx,sy,dx,dy;
+function randomItem(list){
+	return list[Math.floor(list.length*Math.random())];
+}
+
+function randomInt(integer){
+	return Math.floor(integer*Math.random());
+}
 cvs.onmousemove=cvs.onmousedown=function(e){
 	if(e.which===1){
-		i++;
-		sts.innerHTML=i;
+		cSq=randomItem(sq);
+		sx=randomInt(Math.floor(img.width/cSq)*cSq-cSq);
+		sy=randomInt(Math.floor(img.height/cSq)*cSq-cSq);
+		dx=randomInt(Math.floor(img.width/cSq)*cSq-cSq);
+		dy=randomInt(Math.floor(img.height/cSq)*cSq-cSq);
+		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 	}
 }
 </script>
