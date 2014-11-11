@@ -48,6 +48,7 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
+		//drawStroke->getBrush->getMode->getOptions
 	}
 }
 //TODO On mouse up Save to Render Image
