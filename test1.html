@@ -24,8 +24,8 @@ var canDraw = false;
 var i=0
 function loadImage(){
 	canDraw = true;
-	cvs.height=this.height;
-	cvs.width=this.width;
+	cvs.height=img.height;
+	cvs.width=img.width;
 	cxt.drawImage(img,0,0);
 	cxt.font="40px Helvetica";
 	cxt.fillStyle="#000";
