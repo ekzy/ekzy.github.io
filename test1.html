@@ -10,6 +10,7 @@ body {
 }
 </style>
 <body>
+	<input type="file" id="myfile" style="display:none">
 	<div id="status">
 		<input type="text" onchange="sq=[this.value]" style="display:none">
 	</div>
@@ -21,7 +22,7 @@ var cxt = cvs.getContext("2d");
 var img=new Image();
 var canDraw = false;
 var i=0
-img.onload=function(){
+function loadImage(){
 	canDraw = true;
 	cvs.height=this.height;
 	cvs.width=this.width;
@@ -30,6 +31,8 @@ img.onload=function(){
 	cxt.fillStyle="#000";
 	cxt.fillText("Draw on me",512,80);
 }
+
+img.onload=loadImage;
 img.src="hk.jpg"
 var sq=[25,25,25,25,25,50,50,100];
 var cSq,sx,sy,dx,dy;
@@ -53,8 +56,6 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 }
 //TODO On mouse up Save to Render Image
 
-cvs.addEventLister("touchstart",cvs.onmousemove,false);
-cvs.addEventLister("touchmove",cvs.onmousemove,false);
 
 function makeObama(){
 	img.src="obama.jpg";
@@ -62,8 +63,26 @@ function makeObama(){
 function makeHK(){
 	img.src="hk.jpg";
 }
+var fileNode = document.getElementById("myfile");
+function openFile(){
+ fileNode.click();
+}
+var fr = new FileReader();
+fr.onload=function(){
+	img.src=fr.result;
+}
+fileNode.onchange=function(){
+	//fr.onload=function(){
+		fr.readAsDataURL(fileNode.files[0]);
+			//}
+	// console.log("beauller");
+}
+
 </script>
-<a href="javascript:makeObama()">Use Obama Instead</a>
-<a href="javascript:makeHK()">Go Back to Honk Kong</a>
+<div id="somecontrols">
+<div class="control" onclick="makeObama()">Use Obama Instead</div>
+<div class="control" onclick="makeHK()">Go Back to Honk Kong</div>
+<div class="control" onclick="openFile()">or Open your own</div>
+</div>
 </body>
 </html>
