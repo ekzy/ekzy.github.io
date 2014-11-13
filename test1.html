@@ -43,7 +43,9 @@ function randomItem(list){
 function randomInt(integer){
 	return Math.floor(integer*Math.random());
 }
-cvs.onmousemove=cvs.onmousedown=function(e){
+cvs.onmousemove=cvs.onmousedown=drawScramble;
+
+function drawScramble(e){
 	if(e.which===1){
 		cSq=randomItem(sq);
 		sx=Math.floor(randomInt(img.width)/cSq)*cSq-cSq;
@@ -54,8 +56,18 @@ cvs.onmousemove=cvs.onmousedown=function(e){
 		//drawStroke->getBrush->getMode->getOptions
 	}
 }
-//TODO On mouse up Save to Render Image
 
+function randomScramble(){
+	var e;
+	for(var i=0;i<200;i++){
+		e={which:1,layerX:randomInt(img.width),
+			layerY:randomInt(img.height)
+		};
+		drawScramble(e);
+	}
+}
+//TODO On mouse up Save to Render Image
+cvs.onmousemove=cvs.onmousedown=drawScramble;
 
 function makeObama(){
 	img.src="obama.jpg";
@@ -80,6 +92,8 @@ fileNode.onchange=function(){
 <div class="control" onclick="makeObama()">Use Obama Instead</div>
 <div class="control" onclick="makeHK()">Go Back to Honk Kong</div>
 <div class="control" onclick="openFile()">or Open your own</div>
+<div class="control" onclick="loadImage()">Reset</div>
+<div class="control" onclick="randomScramble()">Random corruption</div>
 </div>
 </body>
 </html>
