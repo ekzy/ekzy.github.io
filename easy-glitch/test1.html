@@ -66,7 +66,7 @@ cvs.onmousemove=cvs.onmousedown=drawScramble;
 var preserve=false;
 var swa=img;
 function drawScramble(e){
-	swa=(preserve)?img:cvs;
+	swa=(preserve)?cvs:img;
 	if(e.which===1){
 		cSq=randomItem(sq);
 		sx=Math.floor(randomInt(swa.width)/cSq)*cSq-cSq;
