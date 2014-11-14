@@ -89,7 +89,9 @@ fileNode.onchange=function(){
 		fr.readAsDataURL(fileNode.files[0]);
 	}
 }
-
+function saveImage(){
+	window.location.href=img.src;
+}
 </script>
 <div id="somecontrols">
 <div class="control" onclick="makeObama()">Use Obama Instead</div>
@@ -97,6 +99,7 @@ fileNode.onchange=function(){
 <div class="control" onclick="openFile()">or Open your own</div>
 <div class="control" onclick="loadImage()">Reset</div>
 <div class="control" onclick="randomScramble()">Random corruption</div>
+<div class="control" onclick="saveImage()">Save Image</div>
 </div>
 </body>
 </html>
