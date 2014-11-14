@@ -93,12 +93,10 @@ function randomScramble(){
 	playing=!playing;
 	if(playing){
 		interval=window.setInterval(function(){
-			for(var i=0;i<200;i++){
-				e={which:1,layerX:randomInt(img.width),
-					layerY:randomInt(img.height)
-				};
-				drawScramble(e);
-			}	
+			e={which:1,layerX:randomInt(img.width),
+				layerY:randomInt(img.height)
+			};
+			drawScramble(e);
 		},1000/100);
 	}else{
 		clearInterval(interval);
