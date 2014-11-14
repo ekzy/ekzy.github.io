@@ -110,8 +110,10 @@ fileNode.onchange=function(){
 }
 var image="";
 function saveImage(){
-	image = cvs.toDataURL("image/jpeg").replace("image/jpeg","image/octet-stream");
-	window.open(image);
+	image = cvs.toDataURL("image/png")//.replace("image/jpeg","image/octet-stream");
+	var blob = dataURI(image);
+	var burl = window.URL.createObjectURL(blob);
+	window.open(burl);
 }
 </script>
 <div id="somecontrols">
