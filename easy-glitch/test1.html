@@ -63,7 +63,7 @@ function randomInt(integer){
 	return Math.floor(integer*Math.random());
 }
 cvs.onmousemove=cvs.onmousedown=drawScramble;
-
+var preserve=false;
 function drawScramble(e){
 	if(e.which===1){
 		cSq=randomItem(sq);
@@ -72,6 +72,9 @@ function drawScramble(e){
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
+		if(preserve){
+			cxt.drawImage(img,dx,dy,cSq,cSq,sx,sy,cSq,cSq);
+		}
 		//drawStroke->getBrush->getMode->getOptions
 	}
 }
@@ -123,6 +126,7 @@ function saveImage(){
 <div class="control" onclick="loadImage()">Reset</div>
 <div class="control" onclick="randomScramble()">Random corruption</div>
 <div class="control" onclick="saveImage()">Save Image</div>
+<div class="control" onclick="preserve=!preserve">Toggle Preserve</div>
 </div>
 </body>
 </html>
