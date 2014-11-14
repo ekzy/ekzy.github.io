@@ -73,7 +73,7 @@ function drawScramble(e){
 		sy=Math.floor(randomInt(swa.height)/cSq)*cSq-cSq;
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
-		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
+		cxt.drawImage(swa,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 		if(preserve){
 			cxt.drawImage(swa,dx,dy,cSq,cSq,sx,sy,cSq,cSq);
 		}
