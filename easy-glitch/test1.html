@@ -87,11 +87,12 @@ function drawScramble(e){
 	}
 }
 var playing=false;
+var interval;
 function randomScramble(){
 	var e;
 	playing=!playing;
 	if(playing){
-		var interval=window.setInterval(function(){
+		interval=window.setInterval(function(){
 			for(var i=0;i<200;i++){
 				e={which:1,layerX:randomInt(img.width),
 					layerY:randomInt(img.height)
