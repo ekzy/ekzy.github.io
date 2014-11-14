@@ -110,7 +110,7 @@ fileNode.onchange=function(){
 }
 var image="";
 function saveImage(){
-	image = cvs.toDataURL("image/png");//.replace("image/png","image/octet-stream");
+	image = cvs.toDataURL("image/jpeg").replace("image/jpeg","image/octet-stream");
 	window.open(image);
 }
 </script>
