@@ -37,14 +37,16 @@ body {
 <script type="text/javascript">
 var sts = document.getElementById("status");
 var cvs = document.getElementById("canvas");
+var cv2 = document.createElement("canvas")
 var cxt = cvs.getContext("2d");
+var cx2 = cv2.getContext("2d");
 var img=new Image();
 var canDraw = false;
 var i=0
 function loadImage(){
 	canDraw = true;
-	cvs.height=img.height;
-	cvs.width=img.width;
+	cv2.height=cvs.height=img.height;
+	cv2.width=cvs.width=img.width;
 	cxt.drawImage(img,0,0);
 	//cxt.font="40px Helvetica";
 	//cxt.fillStyle="#000";
@@ -73,9 +75,13 @@ function drawScramble(e){
 		sy=Math.floor(randomInt(swa.height)/cSq)*cSq-cSq;
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
-		cxt.drawImage(swa,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
+		
 		if(preserve){
-			cxt.drawImage(swa,dx,dy,cSq,cSq,sx,sy,cSq,cSq);
+			cx2.drawImage(swa,sx,sy,cSq,cSq,sx,sy,cSq,cSq);//from source canvas 2 buffer
+			cxt.drawImage(swa,dx,dy,cSq,cSq,sx,sy,cSq,cSq);//from destination canvas 2 source canvas
+			cxt.drawImage(cv2,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
+		}else{
+			cxt.drawImage(swa,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 		}
 		//drawStroke->getBrush->getMode->getOptions
 	}
