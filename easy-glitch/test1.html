@@ -89,8 +89,12 @@ fileNode.onchange=function(){
 		fr.readAsDataURL(fileNode.files[0]);
 	}
 }
+var exportImage = new Image();
+exportImage.onload=function(){
+	window.location.href=this.src;
+}
 function saveImage(){
-	window.location.href=img.src;
+	exportImage.src=cvs.toDataURL("image/png");
 }
 </script>
 <div id="somecontrols">
