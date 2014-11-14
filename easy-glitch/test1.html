@@ -89,10 +89,10 @@ fileNode.onchange=function(){
 		fr.readAsDataURL(fileNode.files[0]);
 	}
 }
-
+var image="";
 function saveImage(){
-	var image = cvs.toDataURL("image/png").replace("image/png","image/octet-stream");
-	window.location.href=image;
+	image = cvs.toDataURL("image/png").replace("image/png","image/octet-stream");
+	//window.location.href=image;
 }
 </script>
 <div id="somecontrols">
