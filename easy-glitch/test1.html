@@ -91,8 +91,8 @@ fileNode.onchange=function(){
 }
 var image="";
 function saveImage(){
-	image = cvs.toDataURL("image/jpg");//.replace("image/jpg","image/octet-stream");
-	window.location.href=image;
+	image = cvs.toDataURL("image/jpeg");//.replace("image/jpg","image/octet-stream");
+	window.open(image);
 }
 </script>
 <div id="somecontrols">
