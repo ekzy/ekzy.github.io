@@ -64,16 +64,18 @@ function randomInt(integer){
 }
 cvs.onmousemove=cvs.onmousedown=drawScramble;
 var preserve=false;
+var swa=img;
 function drawScramble(e){
+	swa=(preserve)?img:cvs;
 	if(e.which===1){
 		cSq=randomItem(sq);
-		sx=Math.floor(randomInt(img.width)/cSq)*cSq-cSq;
-		sy=Math.floor(randomInt(img.height)/cSq)*cSq-cSq;
+		sx=Math.floor(randomInt(swa.width)/cSq)*cSq-cSq;
+		sy=Math.floor(randomInt(swa.height)/cSq)*cSq-cSq;
 		dx=Math.floor(e.layerX/cSq)*cSq;
 		dy=Math.floor(e.layerY/cSq)*cSq;
 		cxt.drawImage(img,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
 		if(preserve){
-			cxt.drawImage(img,dx,dy,cSq,cSq,sx,sy,cSq,cSq);
+			cxt.drawImage(swa,dx,dy,cSq,cSq,sx,sy,cSq,cSq);
 		}
 		//drawStroke->getBrush->getMode->getOptions
 	}
