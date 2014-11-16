@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Scrambler</title>
+	<style type="text/css">
+body{
+	margin:0;
+	padding:0;
+	background:#000;
+	color:white;
+}
+
+#controls {
+	position:fixed;
+	left:8px;
+	top:8px;
+}
+
+#controls div {
+	margin:2px;
+	border-radius:5px;
+	border:solid rgba(0,0,0,.5) 1px;
+	background:rgba(32,32,64,.7);
+	padding:2px 5px;
+	font-family:Helvetica;
+	color:#aaa;
+}
+
+	</style>
+</head>
+<body>
+    <img id="canvasImg">
+    <div id="controls">
+    	<div onclick="showALayer()">Show Alpha</div>
+    	<div onclick="showBase()">Show Base</div>
+    	<div onclick="showRender()">Show Render</div>
+    	<div onclick="drawScrmbl()">Draw Scramble</div>
+    	<div onclick="drawScrmbl2()">Scramble Current</div>
+    	<div onclick="setGlitch()">SetGlitch</div>
+    	<div onclick="drawGlitch()">Draw Glitch</div>
+    	<div onclick="drawGlitch2()">Glitch Current</div>
+    	<div>Tile Size<input type="text" size="3" onchange="setSqSize(this.value)" value="20"></div>
+    	<div>Sensitivity<input type="text" size="3" onchange="setSense(this.value)" value="0.5"></div>
+    	<div onclick="invertAlphas()">Invert Alphas</div>
+    	<div onclick="resetRender()">Reset</div>
+    </div>
+	<script type="text/javascript">
+/* 
+1. Load Page/JS
+2. Set Imagefile
+ a. Get Image Info widthxHeight
+  methods:
+ b. SetCanvasDimensions to ImageWidth/Height
+  methods:
+ c. Draw Base Image
+  methods
+3. Set Modifier Map/Image
+  methods:
+4. assign button to make scramble
+
+*/
+var basecanvas = document.createElement("canvas"); //get Canvas
+var acanvas = document.createElement("canvas");
+var cmpcanvas = document.createElement("canvas");
+/*I'm not sure if it's a cludge or not to have three canvas elements but it sure makes switching between views efficient*/
+var ctx = basecanvas.getContext('2d');
+var actx = acanvas.getContext('2d');
+var cctx = cmpcanvas.getContext('2d')
+var baseimg = new Image();
+baseimg.onload = function(){
+	setCanvasDim(this,ctx);
+	drawImage(this,ctx);
+	displayImage(basecanvas);
+}
+var aloaded = false;
+var alayer = new Image();
+var alphas = [];
+var scrmbl = [];
+var sqSize = 50;
+var sens = 0.5;
+
+function setSqSize(v){
+	sqSize=parseInt(v);
+	sqSize= (sqSize > 0)?sqSize:-sqSize;
+	alphas = [];
+	var data = actx.getImageData(0,0,alayer.width,alayer.height).data;
+	for(var i =3; i < data.length;i+=4*sqSize){
+		if(Math.floor((i-3)/4/alayer.width) % sqSize == 0){
+			alphas.push(data[i]/255);
+		}
+	}
+}
+
+function setSense(v){
+ 	sens=v;
+}
+
+function resetRender(){
+	drawImage(baseimg,cctx);
+	displayImage(cmpcanvas);
+}
+
+alayer.onload = function(){
+	aloaded = true;
+	setCanvasDim(this,actx);
+	setCanvasDim(baseimg,cctx);
+	cctx.drawImage(baseimg,0,0);
+	drawImage(this,actx);
+	setSqSize(sqSize);
+	//drawImage(this,actx);
+}
+
+function showALayer(){
+	setCanvasDim(baseimg,actx);
+	//drawImage(baseimg,actx);
+	drawImage(alayer,actx);
+	displayImage(acanvas);
+}
+
+function showRender(){
+	displayImage(cmpcanvas);
+}
+
+function drawScrmbl(){
+	scrmbl = [];
+	var curPos=[0,0];
+	for(var i = 0;i< alphas.length; i++){
+		curPos = [i*sqSize % alayer.width,
+					sqSize*Math.floor(i*sqSize/alayer.width)];
+		if(alphas[i] > Math.pow(Math.random(),sens)){
+			scrmbl.push([
+				sqSize*Math.floor(Math.random()*alayer.width/sqSize),
+				sqSize*Math.floor(Math.random()*alayer.height/sqSize)
+				]);
+				cctx.drawImage(baseimg,
+					scrmbl[i][0],
+					scrmbl[i][1],
+					sqSize,
+					sqSize,
+					curPos[0],
+					curPos[1],
+					sqSize,
+					sqSize
+				);
+		}else{
+			scrmbl.push(curPos);
+		}
+
+	}
+	displayImage(cmpcanvas);
+}
+
+function drawScrmbl2(){
+	var currImg = document.getElementById("canvasImg");
+	scrmbl = [];
+	var curPos=[0,0];
+	for(var i = 0;i< alphas.length; i++){
+		curPos = [i*sqSize % alayer.width,
+					sqSize*Math.floor(i*sqSize/alayer.width)];
+		if(alphas[i] > Math.pow(Math.random(),sens)){
+			scrmbl.push([
+				sqSize*Math.floor(Math.random()*alayer.width/sqSize),
+				sqSize*Math.floor(Math.random()*alayer.height/sqSize)
+				]);
+				cctx.drawImage(currImg,
+					scrmbl[i][0],
+					scrmbl[i][1],
+					sqSize,
+					sqSize,
+					curPos[0],
+					curPos[1],
+					sqSize,
+					sqSize
+				);
+		}else{
+			scrmbl.push(curPos);
+		}
+
+	}
+	displayImage(cmpcanvas);
+}
+
+var shiftx;
+var shifty;
+function setGlitch(){
+	shiftx = Math.floor((Math.random()-.5)*sqSize);
+	shifty = Math.floor((Math.random()-.5)*sqSize);
+}
+setGlitch();
+
+function invertAlphas(){
+	for(i in alphas){
+		alphas[i]=1-alphas[i];
+	}
+}
+
+function drawGlitch(){
+	scrmbl = [];
+	var curPos=[0,0];
+	for(var i = 0;i< alphas.length; i++){
+		curPos = [i*sqSize % alayer.width,
+					sqSize*Math.floor(i*sqSize/alayer.width)];
+		if(alphas[i] > Math.pow(Math.random(),sens)){
+			//scrmbl.push([
+			//	sqSize*Math.floor(Math.random()*alayer.width/sqSize),
+			//	sqSize*Math.floor(Math.random()*alayer.height/sqSize)
+			//	]);
+				cctx.drawImage(baseimg,
+					(curPos[0]+shiftx)%(alayer.width),
+					(curPos[1]+shifty)%(alayer.height),
+					sqSize,
+					sqSize,
+					curPos[0],
+					curPos[1],
+					sqSize,
+					sqSize
+				);
+		}else{
+			//scrmbl.push(curPos);
+		}
+
+	}
+	displayImage(cmpcanvas);
+}
+
+function drawGlitch2(){
+	var currImg = document.getElementById("canvasImg");
+	scrmbl = [];
+	var curPos=[0,0];
+	for(var i = 0;i< alphas.length; i++){
+		curPos = [i*sqSize % alayer.width,
+					sqSize*Math.floor(i*sqSize/alayer.width)];
+		if(alphas[i] > Math.pow(Math.random(),sens)){
+			//scrmbl.push([
+			//	sqSize*Math.floor(Math.random()*alayer.width/sqSize),
+			//	sqSize*Math.floor(Math.random()*alayer.height/sqSize)
+			//	]);
+				cctx.drawImage(currImg,
+					(curPos[0]+shiftx)%(alayer.width),
+					(curPos[1]+shifty)%(alayer.height),
+					sqSize,
+					sqSize,
+					curPos[0],
+					curPos[1],
+					sqSize,
+					sqSize
+				);
+		}else{
+			//scrmbl.push(curPos);
+		}
+
+	}
+	displayImage(cmpcanvas);
+}
+
+
+function showBase(){
+	displayImage(basecanvas);
+}
+
+function setCanvasDim(imgObj,context){
+	context.canvas.width=imgObj.width;
+	context.canvas.height=imgObj.height;
+}
+
+function drawImage(imgObj,context){
+	context.drawImage(
+		imgObj,
+		0, 
+		0,
+		imgObj.width,
+		imgObj.height,
+		0,
+		0,
+		imgObj.width,
+		imgObj.height
+		);
+}
+
+function displayImage(canvas){
+	var dataUrl = canvas.toDataURL();
+	document.getElementById('canvasImg').src=dataUrl;
+}
+baseimg.src = "./wallpaper.jpg";
+alayer.src = "wallpaper.png";
+	</script>
+</body>
+</html>
