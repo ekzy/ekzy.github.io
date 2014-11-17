@@ -135,7 +135,11 @@ function saveImage(){
 }
 
 function changeTileSize(v){
+	v.replace(" ","");
 	sq = v.split(',');
+	for(j in sq){
+		sq[j]=ParseInt(sq[j]);
+	}
 }
 </script>
 <div id="somecontrols">
@@ -146,7 +150,7 @@ function changeTileSize(v){
 <div class="control" onclick="randomScramble()">Random corruption</div>
 <div class="control" onclick="saveImage()">Save Image</div>
 <div class="control" onclick="preserve=!preserve">Toggle Preserve</div>
-<div class="control">Tile Size<input type="text" size="3" onchange="changeTileSize(this.value)"></div>
+<div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" onchange="changeTileSize(this.value)"></div>
 </div>
 </body>
 </html>
