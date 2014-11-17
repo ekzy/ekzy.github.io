@@ -92,6 +92,7 @@ function randomScramble(){
 	var e;
 	playing=!playing;
 	if(playing){
+		setUndo();
 		interval=window.setInterval(function(){
 			e={which:1,layerX:randomInt(img.width),
 				layerY:randomInt(img.height)
@@ -142,9 +143,11 @@ function changeTileSize(v){
 	}
 }
 var undoData;
-cvs.onmousedown=function(){
+
+function setUndo(){
 	undoData=cxt.getImageData(0,0,cvs.width,cvs.height);
 }
+cvs.onmousedown=setUndo;
 function undo(){
 	cxt.putImageData(undoData,0,0);
 }
