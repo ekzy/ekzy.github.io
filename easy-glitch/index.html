@@ -142,7 +142,7 @@ function changeTileSize(v){
 	}
 }
 var undoData;
-cvs.onmouseup=function(){
+cvs.onmousedown=function(){
 	undoData=cxt.getImageData(0,0,cvs.width,cvs.height);
 }
 function undo(){
