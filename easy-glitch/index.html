@@ -143,10 +143,10 @@ function changeTileSize(v){
 }
 var undoData;
 cvs.onmouseup=function(){
-	undoData=cvs.getImageData(0,0,cvs.width,cvs.height);
+	undoData=cxt.getImageData(0,0,cvs.width,cvs.height);
 }
 function undo(){
-	cvs.putImageData(undoData,0,0);
+	cxt.putImageData(undoData,0,0);
 }
 </script>
 <div id="somecontrols">
