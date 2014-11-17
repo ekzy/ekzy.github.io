@@ -69,7 +69,7 @@ var preserve=false;
 var swa=img;
 function drawScramble(e){
 	swa=(preserve)?cvs:img;
-	if(e.which===1){
+	if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
 		cSq=randomItem(sq);
 		sx=Math.floor(randomInt(swa.width)/cSq)*cSq-cSq;
 		sy=Math.floor(randomInt(swa.height)/cSq)*cSq-cSq;
