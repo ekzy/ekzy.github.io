@@ -41,6 +41,7 @@ var cv2 = document.createElement("canvas")
 var cxt = cvs.getContext("2d");
 var cx2 = cv2.getContext("2d");
 var img=new Image();
+var swa=img;
 var canDraw = false;
 var i=0
 function loadImage(){
@@ -48,6 +49,7 @@ function loadImage(){
 	cv2.height=cvs.height=img.height;
 	cv2.width=cvs.width=img.width;
 	cxt.drawImage(img,0,0);
+	swa=img;
 	//cxt.font="40px Helvetica";
 	//cxt.fillStyle="#000";
 	//cxt.fillText("Draw on me",512,80);
@@ -66,7 +68,7 @@ function randomInt(integer){
 }
 cvs.onmousemove=cvs.onmousedown=drawScramble;
 var preserve=false;
-var swa=img;
+
 function drawScramble(e){
 	swa=(preserve)?cvs:img;
 	if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
