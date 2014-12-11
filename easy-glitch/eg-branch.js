@@ -49,8 +49,8 @@ function EasyGlitch(canvasNode){
  		s.cSq = s.getcSq(s.sq);
  		s.sx=randomInt(s.sourceImg.width,s.cSq);
 		s.sy=randomInt(s.sourceImg.height,s.cSq);
-		s.dx=Math.floor(e.layerX/cSq) * cSq;
-		s.dy=Math.floor(e.layerY/cSq) * cSq;
+		s.dx=Math.floor(e.layerX/s.cSq) * s.cSq;
+		s.dy=Math.floor(e.layerY/s.cSq) * s.cSq;
 
 		if(s.preserve){
 			buffcxt.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
