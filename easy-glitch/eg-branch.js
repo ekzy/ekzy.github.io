@@ -79,7 +79,7 @@ function EasyGlitch(canvasNode){
  	s.canvas.onmousemove = s.canvas.onmousdown = s.drawScramble;
  	s.fileNode = document.createElement("input");
  	s.fileNode.setAttribute("type","file");
- 	s.openFile(){
+ 	s.openFile = function(){
  		s.fileNode.value = "";
  		s.fileNode.click();
  	}
