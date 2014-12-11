@@ -16,6 +16,9 @@ function EasyGlitch(canvasNode){
  		s.context.drawImage(s.img,0,0);
  	}
  }
+ s.reset = function (){
+ 	s.loadImage();
+ }
  s.img.onload = s.loadImage;
  s.img.src = "/hk.jpg";
  s.sq = [[25,4],[50,2],[100,1]];
