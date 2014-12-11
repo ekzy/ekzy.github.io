@@ -29,143 +29,20 @@ body {
 
 </style>
 <body>
-	<!--<input type="file" id="myfile" style="display:none">-->
-	<canvas id="canvas" width="1024" height="768" style="margin:0 auto;"></canvas>
-<script type="text/javascript">
-/*
-var sts = document.getElementById("status"); //private
-var cvs = document.getElementById("canvas"); //this
-var cv2 = document.createElement("canvas"); //this
-var cxt = cvs.getContext("2d"); 
-var cx2 = cv2.getContext("2d");
-var img=new Image();
-var swa=img;
-var canDraw = false;
-var i=0
-function loadImage(){
-	canDraw = true;
-	cv2.height=cvs.height=img.height;
-	cv2.width=cvs.width=img.width;
-	cxt.drawImage(img,0,0);
-	swa=img;
-	//cxt.font="40px Helvetica";
-	//cxt.fillStyle="#000";
-	//cxt.fillText("Draw on me",512,80);
-}
-
-img.onload=loadImage;
-img.src="/hk.jpg"
-var sq=[25,25,25,25,25,50,50,100];
-var cSq,sx,sy,dx,dy;
-function randomItem(list){
-	return list[Math.floor(list.length*Math.random())];
-}
-
-function randomInt(integer){
-	return Math.floor(integer*Math.random());
-}
-cvs.onmousemove=cvs.onmousedown=drawScramble;
-var preserve=false;
-
-function drawScramble(e){
-	swa=(preserve)?cvs:img;
-	if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
-		cSq=randomItem(sq);
-		sx=Math.floor(randomInt(swa.width)/cSq)*cSq-cSq;
-		sy=Math.floor(randomInt(swa.height)/cSq)*cSq-cSq;
-		dx=Math.floor(e.layerX/cSq)*cSq;
-		dy=Math.floor(e.layerY/cSq)*cSq;
-		
-		if(preserve){
-			cx2.drawImage(swa,sx,sy,cSq,cSq,sx,sy,cSq,cSq);//from source canvas 2 buffer
-			cxt.drawImage(swa,dx,dy,cSq,cSq,sx,sy,cSq,cSq);//from destination canvas 2 source canvas
-			cxt.drawImage(cv2,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
-		}else{
-			cxt.drawImage(swa,sx,sy,cSq,cSq,dx,dy,cSq,cSq);
-		}
-		//drawStroke->getBrush->getMode->getOptions
-	}
-}
-var playing=false;
-var interval;
-function randomScramble(){
-	var e;
-	playing=!playing;
-	if(playing){
-		setUndo();
-		interval=window.setInterval(function(){
-			e={which:1,layerX:randomInt(img.width),
-				layerY:randomInt(img.height)
-			};
-			drawScramble(e);
-		},1000/200);
-	}else{
-		clearInterval(interval);
-	}
-	
-}
-//TODO On mouse up Save to Render Image
-cvs.onmousemove=cvs.onmousedown=drawScramble;
-
-function makeObama(){
-	img.src="/obama.jpg";
-}
-function makeHK(){
-	img.src="/hk.jpg";
-}
-var fileNode = document.getElementById("myfile");
-function openFile(){
- fileNode.value="";
- fileNode.click();
-}
-var fr = new FileReader();
-fr.onload=function(){
-	img.src=fr.result;
-}
-fileNode.onchange=function(){
-	if(this.value!=""){
-		fr.readAsDataURL(fileNode.files[0]);
-	}
-}
-var image="";
-function saveImage(){
-	image = cvs.toDataURL("image/jpeg");//.replace("image/jpeg","image/octet-stream");
-	//var blob = dataURItoBlob(image);
-	//var burl = window.URL.createObjectURL(blob);
-	window.open(image);
-}
-
-function changeTileSize(v){
-	v.replace(" ","");
-	sq = v.split(',');
-	for(j in sq){
-		sq[j]=parseFloat(sq[j]);
-	}
-}
-var undoData;
-
-function setUndo(){
-	undoData=cxt.getImageData(0,0,cvs.width,cvs.height);
-}
-cvs.onmousedown=setUndo;
-function undo(){
-	cxt.putImageData(undoData,0,0);
-}
-*/
-</script>
+<canvas id="canvas" width="1024" height="768" style="margin:0 auto;"></canvas>
 <script type="text/javascript" src="eg-branch.js"></script>
 <script type="text/javascript">
 var eg = new EasyGlitch(document.getElementById("canvas"));
 </script>
 <div id="somecontrols">
-<div class="control" onclick="eg.makeObama()">Use Obama Instead</div>
-<div class="control" onclick="eg.makeHK()">Go Back to Hong Kong</div>
+<!-- <div class="control" onclick="eg.makeObama()">Use Obama Instead</div> -->
+<!-- <div class="control" onclick="eg.makeHK()">Go Back to Hong Kong</div> -->
 <div class="control" onclick="eg.openFile()">or Open your own</div>
 <div class="control" onclick="eg.loadImage()">Reset</div>
 <div class="control" onclick="eg.randomScramble()">Random corruption</div>
 <div class="control" onclick="eg.saveImage()">Save Image</div>
 <div class="control" onclick="eg.preserve=!eg.preserve">Toggle Preserve</div>
-<div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" value="25,25,25,25,25,50,50,100" onchange="eg.changeTileSize(this.value)"></div>
+<!-- <div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" value="25,25,25,25,25,50,50,100" onchange="eg.changeTileSize(this.value)"></div> -->
 <div class="control" onclick="eg.undo()">Undo</div>
 </div>
 </body>
