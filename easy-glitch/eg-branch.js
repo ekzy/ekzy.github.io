@@ -110,4 +110,10 @@ function EasyGlitch(canvasNode){
  	s.undo = function(){
  		s.context.putImageData(undoData,0,0);
  	}
+ 	s.makeObama = function(){
+ 		s.img.src="/obama.jpg";
+ 	}
+ 	s.makeHK = function(){
+ 		s.img.src="/hk.jpg";
+ 	}
 }
