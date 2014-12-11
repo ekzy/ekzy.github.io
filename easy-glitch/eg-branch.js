@@ -35,7 +35,7 @@ function EasyGlitch(canvasNode){
 	}
 	var value=randomFloat(denom);
 	for(var i in sq){
-		if(value > sq[i]){
+		if(value > sq[i][1]){
 			value -= sq[i][1];
 		}else{
 			return sq[i][0];
@@ -55,7 +55,7 @@ function EasyGlitch(canvasNode){
 		if(s.preserve){
 			s.buffcxt.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
 			s.context.drawImage(s.sourceImg, s.dx ,s.dy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
-			s.context.drawImage(s.buffer, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
+			s.cos.getntext.drawImage(s.buffer, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
 		} else {
 			s.context.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
 		}
