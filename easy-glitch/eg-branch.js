@@ -62,7 +62,7 @@ function EasyGlitch(canvasNode){
  	}
  }
 	s.playing = false;
-	s.interval;
+	s.interval = null;
 	s.randomScramble = function(){
 		var e;
 		s.playing=!s.playing;
@@ -74,6 +74,8 @@ function EasyGlitch(canvasNode){
 				};
 				s.drawScramble(e);
 			},1000/200);
+		} else {
+			clearInterval(s.interval);
 		}
  	}
  	s.canvas.onmousemove = s.canvas.onmousdown = s.drawScramble;
