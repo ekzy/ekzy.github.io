@@ -31,10 +31,25 @@ body {
 <body>
 <canvas id="canvas" width="1024" height="768" style="margin:0 auto;"></canvas>
 <script type="text/javascript" src="eg-branch.js"></script>
+<script type="text/javascript" src="dat.gui.min.js"></script>
 <script type="text/javascript">
-var eg = new EasyGlitch(document.getElementById("canvas"));
+window.onload = function (){
+ var eg = new EasyGlitch(document.getElementById("canvas"));
+ var gui = new dat.GUI();
+ gui.add(eg,'makeObama');
+ gui.add(eg,'makeHK');
+ gui.add(eg,'openFile');
+ gui.add(eg,'loadImage');
+ gui.add(eg,'randomScramble');
+ gui.add(eg,'saveImage');
+ gui.add(eg,'preserve');
+ gui.add(eg,'cSq');
+ gui.add(eg,'undo');
+}
+
 </script>
-<div id="somecontrols">
+
+<!-- <div id="somecontrols">
 <div class="control" onclick="eg.makeObama()">Use Obama Instead</div>
 <div class="control" onclick="eg.makeHK()">Go Back to Hong Kong</div>
 <div class="control" onclick="eg.openFile()">or Open your own</div>
@@ -42,8 +57,8 @@ var eg = new EasyGlitch(document.getElementById("canvas"));
 <div class="control" onclick="eg.randomScramble()">Random corruption</div>
 <div class="control" onclick="eg.saveImage()">Save Image</div>
 <div class="control" onclick="eg.preserve=!eg.preserve">Toggle Preserve</div>
-<!-- <div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" value="25,25,25,25,25,50,50,100" onchange="eg.changeTileSize(this.value)"></div> -->
+<div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" value="25,25,25,25,25,50,50,100" onchange="eg.changeTileSize(this.value)"></div>
 <div class="control" onclick="eg.undo()">Undo</div>
-</div>
+</div> -->
 </body>
 </html>
