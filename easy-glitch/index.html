@@ -16,9 +16,10 @@ body {
 <script type="text/javascript" src="eg-branch.js"></script>
 <script type="text/javascript" src="dat.gui.min.js"></script>
 <script type="text/javascript">
+var eg, gui;
 window.onload = function (){
- var eg = new EasyGlitch(document.getElementById("canvas"));
- var gui = new dat.GUI();
+ eg = new EasyGlitch(document.getElementById("canvas"));
+ gui = new dat.GUI();
  gui.add(eg,'makeObama');
  gui.add(eg,'makeHK');
  gui.add(eg,'openFile');
