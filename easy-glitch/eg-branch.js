@@ -51,11 +51,12 @@ function EasyGlitch(canvasNode){
  }
  s.preserve = false;
  s.manualSize = false;
+ s.sloppy = false;
  s.cSq = 25;
  s.drawScramble = function(e){
  	s.sourceImg = (s.preserve)?s.canvas:s.img;
  	if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
- 		s.cSq = (s.manualSize) ? Math.floor(s.cSq) : s.getcSq(s.sq);
+ 		s.cSq = (s.manualSize) ? s.cSq - (!s.sloppy) * (s.cSq % 1) : s.getcSq(s.sq);
  		s.sx=randomInt(s.sourceImg.width,s.cSq);
 		s.sy=randomInt(s.sourceImg.height,s.cSq);
 		s.dx=Math.floor(e.layerX/s.cSq) * s.cSq;
