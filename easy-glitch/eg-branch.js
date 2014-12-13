@@ -39,13 +39,15 @@ function EasyGlitch(canvasNode){
 		denom+=sq[i][1];
 	}
 	var value=randomFloat(denom);
-	for(var i in sq){
+	var i = 0;
+	do {
 		if(value > sq[i][1]){
 			value -= sq[i][1];
+			i++;
 		}else{
 			return sq[i][0];
 		}
-	}
+	} while (value > 0);
  }
  s.preserve = false;
  s.manualSize = false;
