@@ -27,7 +27,7 @@ function EasyGlitch(canvasNode){
  s.cSq = 0;
  s.sx = s.sy = s.dx = s.dy = 0;
  var randomInt = function(integer,mod){
- 	mod = (typeof mod === "undefined") ? 1 : Math.floor(mod);
+ 	mod = (typeof mod === "undefined") ? 1 : mod;
  	return Math.floor( integer * Math.random()/mod ) * mod;
  }
  var randomFloat = function(floaty){
@@ -53,7 +53,7 @@ function EasyGlitch(canvasNode){
  s.drawScramble = function(e){
  	s.sourceImg = (s.preserve)?s.canvas:s.img;
  	if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
- 		s.cSq = (s.manualSize) ? s.cSq : s.getcSq(s.sq);
+ 		s.cSq = (s.manualSize) ? Math.floor(s.cSq) : s.getcSq(s.sq);
  		s.sx=randomInt(s.sourceImg.width,s.cSq);
 		s.sy=randomInt(s.sourceImg.height,s.cSq);
 		s.dx=Math.floor(e.layerX/s.cSq) * s.cSq;
