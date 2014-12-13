@@ -27,7 +27,7 @@ function EasyGlitch(canvasNode){
  s.cSq = 0;
  s.sx = s.sy = s.dx = s.dy = 0;
  var randomInt = function(integer,mod){
- 	mod = (typeof mod === "undefined") ? 1 : mod;
+ 	mod = (typeof mod === "undefined") ? 1 : Math.floor(mod);
  	return Math.floor( integer * Math.random()/mod ) * mod;
  }
  var randomFloat = function(floaty){
