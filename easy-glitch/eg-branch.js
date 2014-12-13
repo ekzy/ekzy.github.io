@@ -6,11 +6,13 @@ function EasyGlitch(canvasNode){
  s.buffcxt = s.buffer.getContext("2d");
  s.img = new Image();
  s.sourceImg = s.img;
- var canDraw = false;
+ s.canDraw = false;
  s.drawOnLoad = true;
+ var undoData;
  s.loadImage = function(){
  	s.canDraw = true;
  	if(s.drawOnLoad){
+ 		undoData = undefined;
  		s.canvas.height = s.buffer.height = s.img.height;
  		s.canvas.width = s.buffer.width = s.img.width;
  		s.context.drawImage(s.img,0,0);
@@ -32,7 +34,7 @@ function EasyGlitch(canvasNode){
  	return floaty * Math.random();
  }
  s.getcSq = function(sq){
- 	var denom=0
+ 	var denom=0;
 	for(var i in sq){
 		denom+=sq[i][1];
 	}
@@ -107,7 +109,7 @@ function EasyGlitch(canvasNode){
  	s.changeTileSize = function(){
  		//don't know how to do yet with current implementation but OO helps!!!
  	}
- 	var undoData;
+ 	
  	s.setUndo = function() {
  		undoData = s.context.getImageData(0,0,canvas.width,canvas.height);
  	}

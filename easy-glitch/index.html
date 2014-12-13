@@ -9,23 +9,6 @@ body {
 	color:white;
 	font:14pt Helvetica;
 }
-#somecontrols {
-	position:fixed;
-	top:20px;
-	right:20px;
-	background:rgba(32,32,32,.2);
-}
-#somecontrols .control{
-	cursor:pointer;
-	background:rgba(32,32,32,.2);
-	border:solid black 1px;
-	border-radius:5px;
-	padding:2px 5px;
-	margin:2px;
-}
-#somecontrols .control:hover{
-	background:rgba(32,32,32,.8);
-}
 
 </style>
 <body>
@@ -45,21 +28,10 @@ window.onload = function (){
  gui.add(eg,'preserve');
  gui.add(eg,'manualSize');
  gui.add(eg,'cSq',1,500).listen();
+ gui.add(eg,'sx').listen();
  gui.add(eg,'undo');
 }
 
 </script>
-
-<!-- <div id="somecontrols">
-<div class="control" onclick="eg.makeObama()">Use Obama Instead</div>
-<div class="control" onclick="eg.makeHK()">Go Back to Hong Kong</div>
-<div class="control" onclick="eg.openFile()">or Open your own</div>
-<div class="control" onclick="eg.loadImage()">Reset</div>
-<div class="control" onclick="eg.randomScramble()">Random corruption</div>
-<div class="control" onclick="eg.saveImage()">Save Image</div>
-<div class="control" onclick="eg.preserve=!eg.preserve">Toggle Preserve</div>
-<div class="control" title="Seperate multiple sizes by comma no space">Tile Size<input type="text" size="20" value="25,25,25,25,25,50,50,100" onchange="eg.changeTileSize(this.value)"></div>
-<div class="control" onclick="eg.undo()">Undo</div>
-</div> -->
 </body>
 </html>
