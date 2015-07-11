@@ -61,15 +61,45 @@ function EasyGlitch(canvasNode){
 * drawOnLoad: default true. can be made false so that image can be loaded into buffer(s) instead or in pieces instead
 */
     s.drawOnLoad = true;
+/*
+* preserve: default false, advises the drawing function to swap the source piece with the destination piece
+*/
     s.preserve = false;
+/*
+* manualSize: default false, advises the drawing function to not use functions like getSq (should be deprecated)
+*/
     s.manualSize = false;
+/*
+* sloppy: default false, cSq may be a float depending on the function assigning it a value.
+* a sloppy value of true advises the drawing function to allow the pull and push image data with float coordinates
+* on certain browsers, this results in a blurring effect.
+*/
     s.sloppy = false;
+/*
+* cSq: int (or float if sloppy), Dominanante size parameter for the brush
+*/
     s.cSq = 25;
+/*
+* sq: 2xN array [[settingvar, partProbability],...] first index of the 2 part array can be any var that the drawing function. can use
+* muliple of these can be extended after new EasyGlitch is called.
+* could be replaced with new Array()
+*/
     s.sq = [[25,4],[50,2],[100,1]];
-    s.cSq = 0;
+/*
+* source and destination vars.
+*/
     s.sx = s.sy = s.dx = s.dy = 0;
+/*
+* playing: default false. advises any automatically running functions to continue automatically running.
+*/
     s.playing = false;
+/*
+* interval: default is null but I'm making it directly accessible externally for support of other automatically running functions.
+*/
     s.interval = null;
+/*
+* DataUrl for the image for downloading
+*/
     s.image = "";
 
 /*
@@ -78,7 +108,7 @@ function EasyGlitch(canvasNode){
     s.loadImage = function(){
         s.canDraw = true;
         if(s.drawOnLoad){
-            undoData = undefined;
+            undoData = undefined; //set undo data;
             s.canvas.height = s.buffer.height = s.img.height;
             s.canvas.width = s.buffer.width = s.img.width;
             s.context.drawImage(s.img,0,0);
@@ -123,8 +153,8 @@ function EasyGlitch(canvasNode){
         }
     }
     s.randomScramble = function(){
-        var e;
-        s.playing=!s.playing;
+        var e; //this way we don't kill the memory declaring it every time we want to draw something.
+        s.playing=!s.playing; //turn off if on, turn on if off.
         if(s.playing){
             s.setUndo();
             s.interval = window.setInterval( function(){
@@ -143,14 +173,9 @@ function EasyGlitch(canvasNode){
         s.fileNode.click();
     }
 
-    s.fr.onload = function(){
-        s.img.src = s.fr.result;
-    }
-
-
     s.saveImage = function(){
-        s.image = s.canvas.toDataURL("image/jpeg");
-        window.open(s.image); //don't crash please!!!
+        s.image = s.canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
+        window.location.href=s.image; //don't crash please!!!
     }
     s.changeTileSize = function(){
         //don't know how to do yet with current implementation but OO helps!!!
@@ -180,10 +205,14 @@ function EasyGlitch(canvasNode){
                 s.fr.readAsDataURL( s.fileNode.files[0] );
             }
         }
+        s.fr.onload = function(){
+            s.img.src = s.fr.result;
+        }
         s.canvas.onmousemove = s.canvas.onmousdown = s.drawScramble;
         s.canvas.onmousedown = s.setUndo;
         s.img.onload = s.loadImage;
-        s.img.src = "/hk.jpg"; //this should go away, or at least be put at the end of the object :/
+        s.img.src = "../hk.jpg";
+        s.cSq = 0;
     }
 
     init();
