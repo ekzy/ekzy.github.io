@@ -1,3 +1,8 @@
+/*
+* Easy-Gltich v0.1
+* Author: Eva Perman
+*/
+
 function EasyGlitch(canvasNode){
 
 /*
@@ -23,7 +28,7 @@ function EasyGlitch(canvasNode){
 */
     var randomInt = function(integer,mod){
         mod = (typeof mod === "undefined") ? 1 : mod;
-        return Math.floor( integer * Math.random()/mod ) * mod;
+        return Math.floor( integer * Math.random() / mod ) * mod;
     }
 /*
 * randomFloat: return random floating value between 0 and floaty, called floaty because of namespace
@@ -171,14 +176,14 @@ function EasyGlitch(canvasNode){
     //Should also add advanced mode.
     s.drawScramble = function(e){
         s.sourceImg = (s.preserve)?s.canvas:s.img;
-        if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){ //kludge to support both gecko and webkit
+        if((e.which === 1 && e.buttons === undefined) || e.buttons % 2 == 1){ //kludge to support both gecko and webkit
             s.cSq = (s.manualSize) ? s.cSq - (!s.sloppy) * (s.cSq % 1) : s.getcSq(s.sq); //all of the stuff on the left should be put in getcSq
             //get random places to pull from (TODO: limit this to an area or a source mask)
             //for drawscramble, there should be an xtraSloppy option that doesn't round like this
-            s.sx=randomInt(s.sourceImg.width , s.cSq);
-            s.sy=randomInt(s.sourceImg.height , s.cSq);
-            s.dx=Math.floor(e.layerX/s.cSq) * s.cSq;
-            s.dy=Math.floor(e.layerY/s.cSq) * s.cSq;
+            s.sx = randomInt(s.sourceImg.width , s.cSq);
+            s.sy = randomInt(s.sourceImg.height , s.cSq);
+            s.dx = Math.floor(e.layerX / s.cSq) * s.cSq;
+            s.dy = Math.floor(e.layerY / s.cSq) * s.cSq;
             // below should be put into it's own function called drawBrush
             if(s.preserve){
                 //if preserve is true, first draw the source tile to the buffer in the source's spot
@@ -203,8 +208,8 @@ function EasyGlitch(canvasNode){
         if(s.playing){
             s.setUndo();
             s.interval = window.setInterval( function(){
-                e={which:1,layerX:randomInt(s.img.width),//emulates mouse event
-                    layerY:randomInt(s.img.height)
+                e = {which:1,layerX:randomInt(s.img.width),//emulates mouse event
+                    layerY:randomInt(s.img.height) //if you think this looks like a kludge, it's because it is
                 };
                 s.drawScramble(e);
             },1000/200);
@@ -224,7 +229,7 @@ function EasyGlitch(canvasNode){
 */
     s.saveImage = function(){
         s.image = s.canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
-        window.location.href=s.image; //don't crash please!!!
+        window.location.href = s.image; //don't crash please!!!
     }
     s.changeTileSize = function(){
         //don't know how to do yet with current implementation but OO helps!!!
