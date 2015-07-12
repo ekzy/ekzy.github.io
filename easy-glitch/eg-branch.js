@@ -105,6 +105,10 @@ function EasyGlitch(canvasNode){
 /*
 * PUBLIC functions
 */
+/*
+* loadImage: runs when the src of the image after s.img has been loaded into the buffer.
+* If drawOnLoad is true, change the canvas size to the image.
+*/
     s.loadImage = function(){
         s.canDraw = true;
         if(s.drawOnLoad){
@@ -114,17 +118,31 @@ function EasyGlitch(canvasNode){
             s.context.drawImage(s.img,0,0);
         }
     }
+/*
+* Forces a redraw of s.img
+*/
     s.reset = function (){
+        var temp = s.drawOnLoad; //stores to temp variable
+        s.drawOnLoad = true;
         s.loadImage();
+        s.drawOnLoad = temp; //restores previous
     }
-    //TODO ADD string support and add dimension support
-    //Should also add advanced mode.
+/*
+* getcSq: takes sq array and randomly pulls the first element of one of it's root entries based on it's part weight
+* in the example default above we have
+* s.sq = [[25,4],[50,2],[100,1]];
+* this function add all of the second indecies (weights) and finds a random value between zero and that sum (in this case: 0 and 7)
+* if the random number returned is less than the first weight, the function returns the first index (the value).
+* if it's greater, it subjracts the weight from the random number and tests again with the next entry in the array
+* It will continue until the random number is less than the weight of the current index.
+* This allows for random values in the sq array to be preferred over others while keeping for a chaotic set
+*/
     s.getcSq = function(sq){
-        var denom=0;
+        var denom = 0;
         for(var i in sq){
             denom+=sq[i][1];
         }
-        var value=randomFloat(denom);
+        var value = randomFloat(denom);
         var i = 0;
         do {
             if(value > sq[i][1]){
@@ -135,30 +153,47 @@ function EasyGlitch(canvasNode){
             }
         } while (value > 0);
     }
+/*
+* drawScrample: actually does the work. This is the main function here that actually makes the result.
+* runs when the mouse moves over the canvas or when the cursor mousedown's on it.
+*/
+    //TODO ADD string support (e.g. "100%" or 15p32)and add dimension support
+    //Should also add advanced mode.
     s.drawScramble = function(e){
         s.sourceImg = (s.preserve)?s.canvas:s.img;
-        if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){
-            s.cSq = (s.manualSize) ? s.cSq - (!s.sloppy) * (s.cSq % 1) : s.getcSq(s.sq);
-            s.sx=randomInt(s.sourceImg.width,s.cSq);
-            s.sy=randomInt(s.sourceImg.height,s.cSq);
+        if((e.which===1 && e.buttons === undefined)|| e.buttons % 2 == 1){ //kludge to support both gecko and webkit
+            s.cSq = (s.manualSize) ? s.cSq - (!s.sloppy) * (s.cSq % 1) : s.getcSq(s.sq); //all of the stuff on the left should be put in getcSq
+            //get random places to pull from (TODO: limit this to an area or a source mask)
+            //for drawscramble, there should be an xtraSloppy option that doesn't round like this
+            s.sx=randomInt(s.sourceImg.width , s.cSq);
+            s.sy=randomInt(s.sourceImg.height , s.cSq);
             s.dx=Math.floor(e.layerX/s.cSq) * s.cSq;
             s.dy=Math.floor(e.layerY/s.cSq) * s.cSq;
+            // below should be put into it's own function called drawBrush
             if(s.preserve){
+                //if preserve is true, first draw the source tile to the buffer in the source's spot
                 s.buffcxt.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
+                //then draw the CURRENT tile from the destination spot to the area on the source spot
                 s.context.drawImage(s.sourceImg, s.dx ,s.dy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
+                //finally, take the one from the buffer and put it into the destination spot on the source image.
                 s.context.drawImage(s.buffer, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
             } else {
+                //if no preserve, just take a tile and then put it where it needs to go leaving the source info where it is
+                //essentially, it duplicates the tile from the source tial
                 s.context.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
             }
         }
     }
+/*
+* randomScramble, runs drawScamble over an interval. hypnotic if preserve is on
+*/
     s.randomScramble = function(){
         var e; //this way we don't kill the memory declaring it every time we want to draw something.
         s.playing=!s.playing; //turn off if on, turn on if off.
         if(s.playing){
             s.setUndo();
             s.interval = window.setInterval( function(){
-                e={which:1,layerX:randomInt(s.img.width),
+                e={which:1,layerX:randomInt(s.img.width),//emulates mouse event
                     layerY:randomInt(s.img.height)
                 };
                 s.drawScramble(e);
@@ -167,12 +202,16 @@ function EasyGlitch(canvasNode){
             clearInterval(s.interval);
         }
     }
-
+/*
+* initiates file Dialog
+*/
     s.openFile = function(){
         s.fileNode.value = "";
         s.fileNode.click();
     }
-
+/*
+* initiates save actions. has problems
+*/
     s.saveImage = function(){
         s.image = s.canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
         window.location.href=s.image; //don't crash please!!!
@@ -180,16 +219,27 @@ function EasyGlitch(canvasNode){
     s.changeTileSize = function(){
         //don't know how to do yet with current implementation but OO helps!!!
     }
-
+/*
+* sets the undo data this should be replaced by pushUndo
+*/
     s.setUndo = function() {
         undoData = s.context.getImageData(0,0,canvas.width,canvas.height);
     }
+/*
+* applies undo data, this should be replaced with pullUndo
+*/
     s.undo = function(){
         s.context.putImageData(undoData,0,0);
     }
+/*
+* changes base image to Barack Obama
+*/
     s.makeObama = function(){
         s.img.src="/obama.jpg";
     }
+/*
+* changes the base image back to Hong Kong
+*/
     s.makeHK = function(){
         s.img.src="/hk.jpg";
     }
