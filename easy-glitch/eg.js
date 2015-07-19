@@ -181,7 +181,7 @@ function EasyGlitch(canvasNode){
 /*
 * makeGCodep
 */
-    s.makeGCodep = function(){
+    s.vaporWave = function(){
         var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
         var data = idata.data;
         var tmp;
