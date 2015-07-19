@@ -98,6 +98,10 @@ function EasyGlitch(canvasNode){
 */
     s.sq = [[25,4],[50,2],[100,1]];
 /*
+* brush
+*/
+    s.brush = null;
+/*
 * source and destination vars.
 */
     s.sx = s.sy = s.dx = s.dy = 0;
@@ -134,7 +138,7 @@ function EasyGlitch(canvasNode){
         }
     }
 /*
-* Forces a redraw of s.img
+* reset: Forces a redraw of s.img
 */
     s.reset = function (){
         var temp = s.drawOnLoad; //stores to temp variable
@@ -169,13 +173,38 @@ function EasyGlitch(canvasNode){
         } while (value > 0);
     }
 /*
+* drawBrush
+*/
+    s.drawBrush = function(o){
+        //ugh I don't even know
+    }
+/*
+* makeGCodep
+*/
+    s.makeGCodep = function(){
+        var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
+        var data = idata.data;
+        var tmp;
+        for (i = 0; i < data.length; i += 4){
+            tmp = data[i+2];
+            data[i+2] = data[i];
+            data[i] = tmp;
+            if (data[i+1] > data[i+2]){
+                //tmp = data[i+2];
+                data[i+2] = data[i+1];
+                //data[i+1] = tmp;
+            }
+        }
+        s.context.putImageData(idata,0,0);
+    }
+/*
 * drawScrample: actually does the work. This is the main function here that actually makes the result.
 * runs when the mouse moves over the canvas or when the cursor mousedown's on it.
 */
     //TODO ADD string support (e.g. "100%" or 15p32)and add dimension support
     //Should also add advanced mode.
     s.drawScramble = function(e){
-        s.sourceImg = (s.preserve)?s.canvas:s.img;
+        s.sourceImg = (s.preserve) ? s.canvas : s.img;
         if((e.which === 1 && e.buttons === undefined) || e.buttons % 2 == 1){ //kludge to support both gecko and webkit
             s.cSq = (s.manualSize) ? s.cSq - (!s.sloppy) * (s.cSq % 1) : s.getcSq(s.sq); //all of the stuff on the left should be put in getcSq
             //get random places to pull from (TODO: limit this to an area or a source mask)
