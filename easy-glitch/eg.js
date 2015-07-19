@@ -197,10 +197,17 @@ function EasyGlitch(canvasNode){
         var data = idata.data;
         var tmp;
         for (i = 0; i < data.length; i += 4){
-            if (data[i+1] > data[i+2])
-            tmp = data[i+2];
-            data[i+2] = data[i+1];
-            data[i+1] = tmp;
+            if (data[i+1] > data[i+2]){
+                tmp = data[i+1];
+                if(!s.sloppy){
+                    data[i+1] = data[i+2];
+                    data[i+2] = tmp;
+                }
+            }
+            if(s.sloppy){
+                data[i+1] = data[i+2];
+                data[i+2] = tmp;
+            }
         }
         s.context.putImageData(idata,0,0);
     }
