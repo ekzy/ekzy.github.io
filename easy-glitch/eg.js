@@ -179,7 +179,7 @@ function EasyGlitch(canvasNode){
         //ugh I don't even know
     }
 /*
-* makeGCodep
+* vaporWave
 */
     s.vaporWave = function(){
         var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
@@ -189,6 +189,18 @@ function EasyGlitch(canvasNode){
             tmp = data[i+2];
             data[i+2] = (data[i] > data[i+1]) ? data[i]:data[i+1];
             data[i] = tmp;
+        }
+        s.context.putImageData(idata,0,0);
+    }
+    s.vaporWave2 = function(){
+        var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
+        var data = idata.data;
+        var tmp;
+        for (i = 0; i < data.length; i += 4){
+            if (data[i+1] > data[i+2])
+            tmp = data[i+2];
+            data[i+2] = data[i+1];
+            data[i+1] = tmp;
         }
         s.context.putImageData(idata,0,0);
     }
@@ -219,7 +231,7 @@ function EasyGlitch(canvasNode){
             } else {
                 //if no preserve, just take a tile and then put it where it needs to go leaving the source info where it is
                 //essentially, it duplicates the tile from the source tial
-                s.context.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
+                s.context.drawImage(s.canvas, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
             }
         }
     }
