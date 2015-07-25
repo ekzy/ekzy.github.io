@@ -176,7 +176,7 @@ function EasyGlitch(canvasNode){
  * drawBrush
  */
     s.drawBrush = function(o){
-        //ugh I don't even know
+        //ugh I don't even know, still not sure
     }
 /*
  * vaporWave
