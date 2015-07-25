@@ -1,133 +1,133 @@
 /*
-* Easy-Gltich v0.1
-* Author: Eva Perman
-*/
+ * Easy-Gltich v0.1
+ * Author: Eva Perman
+ */
 
 function EasyGlitch(canvasNode){
 
 /*
-* s is for self
-* and for object oriented scoping. saves a LOT of trouble.
-*/
+ * s is for self
+ * and for object oriented scoping. saves a LOT of trouble.
+ */
     var s = this;
 
 /*
-* =======================================================
-* Private Vars
-* =======================================================
-*
-* undoData; image data from currently stored image value, default is null.
-*/
+ * =======================================================
+ * Private Vars
+ * =======================================================
+ *
+ * undoData; image data from currently stored image value, default is null.
+ */
     var undoData;
 /*
-* =======================================================
-* Private functions
-* =======================================================
-*
-* randomInt: returns random integer that is a multiple of mod that is a value between 0 and integer
-*/
+ * =======================================================
+ * Private functions
+ * =======================================================
+ *
+ * randomInt: returns random integer that is a multiple of mod that is a value between 0 and integer
+ */
     var randomInt = function(integer,mod){
         mod = (typeof mod === "undefined") ? 1 : mod;
         return Math.floor( integer * Math.random() / mod ) * mod;
     }
 /*
-* randomFloat: return random floating value between 0 and floaty, called floaty because of namespace
-*/
+ * randomFloat: return random floating value between 0 and floaty, called floaty because of namespace
+ */
     var randomFloat = function(floaty){
         return floaty * Math.random();
     }
 
 /*
-* =======================================================
-* PUBLIC variables
-* =======================================================
-*
-* canvas: the main canvas dom element
-*/
+ * =======================================================
+ * PUBLIC variables
+ * =======================================================
+ *
+ * canvas: the main canvas dom element
+ */
     s.canvas = canvasNode;
 /*
-* buffer: hidden canvas to hold temporary image data. Multiple buffers can be supported
-*/
+ * buffer: hidden canvas to hold temporary image data. Multiple buffers can be supported
+ */
     s.buffer = document.createElement("canvas");
 /*
-* context: the canvas element's context to hold the image data
-*/
+ * context: the canvas element's context to hold the image data
+ */
     s.context = s.canvas.getContext("2d");
 /*
-* buffercxt: the buffer canvas's context for temporary image data.
-*/
+ * buffercxt: the buffer canvas's context for temporary image data.
+ */
     s.buffcxt = s.buffer.getContext("2d");
 /*
-* img: the base image to draw on the canvas. changing it's source calls loadImage function
-*/
+ * img: the base image to draw on the canvas. changing it's source calls loadImage function
+ */
     s.img = new Image();
 /*
-* sourceImg: where the image data is drawn from. Could be the main img or any image variable. Can be swapped with buffer
-*/
+ * sourceImg: where the image data is drawn from. Could be the main img or any image variable. Can be swapped with buffer
+ */
     s.sourceImg = s.img;
 /*
-* canDraw: default false. makes it so that javascript doesn't error out if there is no image loaded
-*/
+ * canDraw: default false. makes it so that javascript doesn't error out if there is no image loaded
+ */
     s.canDraw = false;
 /*
-* drawOnLoad: default true. can be made false so that image can be loaded into buffer(s) instead or in pieces instead
-*/
+ * drawOnLoad: default true. can be made false so that image can be loaded into buffer(s) instead or in pieces instead
+ */
     s.drawOnLoad = true;
 /*
-* preserve: default false, advises the drawing function to swap the source piece with the destination piece
-*/
+ * preserve: default false, advises the drawing function to swap the source piece with the destination piece
+ */
     s.preserve = false;
 /*
-* manualSize: default false, advises the drawing function to not use functions like getSq (should be deprecated)
-*/
+ * manualSize: default false, advises the drawing function to not use functions like getSq (should be deprecated)
+ */
     s.manualSize = false;
 /*
-* sloppy: default false, cSq may be a float depending on the function assigning it a value.
-* a sloppy value of true advises the drawing function to allow the pull and push image data with float coordinates
-* on certain browsers, this results in a blurring effect.
-*/
+ * sloppy: default false, cSq may be a float depending on the function assigning it a value.
+ * a sloppy value of true advises the drawing function to allow the pull and push image data with float coordinates
+ * on certain browsers, this results in a blurring effect.
+ */
     s.sloppy = false;
 /*
-* cSq: int (or float if sloppy), Dominanante size parameter for the brush
-*/
+ * cSq: int (or float if sloppy), Dominanante size parameter for the brush
+ */
     s.cSq = 25;
 /*
-* sq: 2xN array [[settingvar, partProbability],...] first index of the 2 part array can be any var that the drawing function. can use
-* muliple of these can be extended after new EasyGlitch is called.
-* could be replaced with new Array()
-*/
+ * sq: 2xN array [[settingvar, partProbability],...] first index of the 2 part array can be any var that the drawing function. can use
+ * muliple of these can be extended after new EasyGlitch is called.
+ * could be replaced with new Array()
+ */
     s.sq = [[25,4],[50,2],[100,1]];
 /*
-* brush
-*/
+ * brush
+ */
     s.brush = null;
 /*
-* source and destination vars.
-*/
+ * source and destination vars.
+ */
     s.sx = s.sy = s.dx = s.dy = 0;
 /*
-* playing: default false. advises any automatically running functions to continue automatically running.
-*/
+ * playing: default false. advises any automatically running functions to continue automatically running.
+ */
     s.playing = false;
 /*
-* interval: default is null but I'm making it directly accessible externally for support of other automatically running functions.
-*/
+ * interval: default is null but I'm making it directly accessible externally for support of other automatically running functions.
+ */
     s.interval = null;
 /*
-* DataUrl for the image for downloading
-*/
+ * DataUrl for the image for downloading
+ */
     s.image = "";
 
 /*
-* =======================================================
-* PUBLIC functions
-* =======================================================
-*
-*/
+ * =======================================================
+ * PUBLIC functions
+ * =======================================================
+ *
+ */
 /*
-* loadImage: runs when the src of the image after s.img has been loaded into the buffer.
-* If drawOnLoad is true, change the canvas size to the image.
-*/
+ * loadImage: runs when the src of the image after s.img has been loaded into the buffer.
+ * If drawOnLoad is true, change the canvas size to the image.
+ */
     s.loadImage = function(){
         s.canDraw = true;
         if(s.drawOnLoad){
@@ -138,8 +138,8 @@ function EasyGlitch(canvasNode){
         }
     }
 /*
-* reset: Forces a redraw of s.img
-*/
+ * reset: Forces a redraw of s.img
+ */
     s.reset = function (){
         var temp = s.drawOnLoad; //stores to temp variable
         s.drawOnLoad = true;
@@ -147,15 +147,15 @@ function EasyGlitch(canvasNode){
         s.drawOnLoad = temp; //restores previous
     }
 /*
-* getcSq: takes sq array and randomly pulls the first element of one of it's root entries based on it's part weight
-* in the example default above we have
-* s.sq = [[25,4],[50,2],[100,1]];
-* this function add all of the second indecies (weights) and finds a random value between zero and that sum (in this case: 0 and 7)
-* if the random number returned is less than the first weight, the function returns the first index (the value).
-* if it's greater, it subjracts the weight from the random number and tests again with the next entry in the array
-* It will continue until the random number is less than the weight of the current index.
-* This allows for random values in the sq array to be preferred over others while keeping for a chaotic set
-*/
+ * getcSq: takes sq array and randomly pulls the first element of one of it's root entries based on it's part weight
+ * in the example default above we have
+ * s.sq = [[25,4],[50,2],[100,1]];
+ * this function add all of the second indecies (weights) and finds a random value between zero and that sum (in this case: 0 and 7)
+ * if the random number returned is less than the first weight, the function returns the first index (the value).
+ * if it's greater, it subtracts the weight from the random number and tests again with the next entry in the array
+ * It will continue until the random number is less than the weight of the current index.
+ * This allows for random values in the sq array to be preferred over others while keeping for a chaotic set
+ */
     s.getcSq = function(sq){
         var denom = 0;
         for(var i in sq){
@@ -173,14 +173,14 @@ function EasyGlitch(canvasNode){
         } while (value > 0);
     }
 /*
-* drawBrush
-*/
+ * drawBrush
+ */
     s.drawBrush = function(o){
         //ugh I don't even know
     }
 /*
-* vaporWave
-*/
+ * vaporWave
+ */
     s.vaporWave = function(){
         var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
         var data = idata.data;
@@ -212,9 +212,9 @@ function EasyGlitch(canvasNode){
         s.context.putImageData(idata,0,0);
     }
 /*
-* drawScrample: actually does the work. This is the main function here that actually makes the result.
-* runs when the mouse moves over the canvas or when the cursor mousedown's on it.
-*/
+ * drawScrample: actually does the work. This is the main function here that actually makes the result.
+ * runs when the mouse moves over the canvas or when the cursor mousedown's on it.
+ */
     //TODO ADD string support (e.g. "100%" or 15p32)and add dimension support
     //Should also add advanced mode.
     s.drawScramble = function(e){
@@ -243,8 +243,8 @@ function EasyGlitch(canvasNode){
         }
     }
 /*
-* randomScramble, runs drawScamble over an interval. hypnotic if preserve is on
-*/
+ * randomScramble, runs drawScamble over an interval. hypnotic if preserve is on
+ */
     s.randomScramble = function(){
         var e; //this way we don't kill the memory declaring it every time we want to draw something.
         s.playing=!s.playing; //turn off if on, turn on if off.
@@ -261,15 +261,15 @@ function EasyGlitch(canvasNode){
         }
     }
 /*
-* initiates file Dialog
-*/
+ * initiates file Dialog
+ */
     s.openFile = function(){
         s.fileNode.value = "";
         s.fileNode.click();
     }
 /*
-* initiates save actions. has problems
-*/
+ * initiates save actions. has problems
+ */
     s.saveImage = function(){
         s.image = s.canvas.toDataURL("image/png").replace("image/png","image/octet-stream");
         window.location.href = s.image; //don't crash please!!!
@@ -278,32 +278,32 @@ function EasyGlitch(canvasNode){
         //don't know how to do yet with current implementation but OO helps!!!
     }
 /*
-* sets the undo data this should be replaced by pushUndo
-*/
+ * sets the undo data this should be replaced by pushUndo
+ */
     s.setUndo = function() {
         undoData = s.context.getImageData(0,0,canvas.width,canvas.height);
     }
 /*
-* applies undo data, this should be replaced with pullUndo
-*/
+ * applies undo data, this should be replaced with pullUndo
+ */
     s.undo = function(){
         s.context.putImageData(undoData,0,0);
     }
 /*
-* changes base image to Barack Obama
-*/
+ * changes base image to Barack Obama
+ */
     s.makeObama = function(){
         s.img.src="/obama.jpg";
     }
 /*
-* changes the base image back to Hong Kong
-*/
+ * changes the base image back to Hong Kong
+ */
     s.makeHK = function(){
         s.img.src="/hk.jpg";
     }
 /*
-* Private Function Init, initalizes all public and handlers
-*/
+ * Private Function Init, initalizes all public and handlers
+ */
     var init = function() {
         s.fr = new FileReader();
         s.fileNode = document.createElement("input");
