@@ -211,12 +211,12 @@ function EasyGlitch(canvasNode){
         }
         s.context.putImageData(idata,0,0);
     }
-    s.desaturate = function(){
+    s.encode = function(){
         var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
         var data = idata.data;
         var tmp;
         for (i = 0; i < data.length; i += 4){
-            data[i] = data[i+1] = data[i+2] = Math.max(data[i],data[i+1],data[i+2]);
+            tmp = Math.max(data[i],data[i+1],data[i+2]);
         }
         s.context.putImageData(idata,0,0);
     }
