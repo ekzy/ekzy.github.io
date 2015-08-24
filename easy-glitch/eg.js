@@ -211,6 +211,16 @@ function EasyGlitch(canvasNode){
         }
         s.context.putImageData(idata,0,0);
     }
+    s.desaturate = function(){
+        var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
+        var data = idata.data;
+        var tmp;
+        for (i = 0; i < data.length; i += 4){
+            tmp = Math.floor(Math.sqrt(data[i]^2 + data[i+1]^2 + data[i+2]^2));
+            data[i] = data[i+1] = data[i+2] = tmp;
+        }
+        s.context.putImageData(idata,0,0);
+    }
 /*
  * drawScrample: actually does the work. This is the main function here that actually makes the result.
  * runs when the mouse moves over the canvas or when the cursor mousedown's on it.
