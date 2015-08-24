@@ -216,8 +216,7 @@ function EasyGlitch(canvasNode){
         var data = idata.data;
         var tmp;
         for (i = 0; i < data.length; i += 4){
-            tmp = Math.floor(Math.sqrt(data[i]*data[i] + data[i+1]*data[i+1] + data[i+2]*data[i+2]));
-            data[i] = data[i+1] = data[i+2] = tmp;
+            data[i] = data[i+1] = data[i+2] = Math.max(data[i],data[i+1],data[i+2]);
         }
         s.context.putImageData(idata,0,0);
     }
