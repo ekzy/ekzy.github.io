@@ -217,15 +217,15 @@ function EasyGlitch(canvasNode){
         //first 2 bits will be Cr, the second 2 bits will be Cb
         //the length of sectors then will be 4 * string.length OR
         string = "SmVnIGVsc2tlciBkZWcgc8OlIG15ZSwga2rDpnJlc3RlbiBtaW4gPDM";
-        var len = int(3 * string.length /2) +1;
+        var len = Math.floor(3 * string.length /2) +1;
         var dim;
-        sqrt = int(Math.sqrt(len)) + 1;
+        sqrt = Math.floor(Math.sqrt(len)) + 1;
         if (sqrt * (sqrt - 1) < len){
             dim = [sqrt - 1, sqrt];
         }else{
             dim = [sqrt,sqrt];
         }
-        var cellSize = [int(s.canvas.width/dim[0]),int(s.canvas.height/dim[1])]
+        var cellSize = [Math.floor(s.canvas.width/dim[0]),Math.floor(s.canvas.height/dim[1])]
         var strData = [];
         for(var i = 0; i < string.length; i++){
             strData = strData.concat(b64s[string.charAt(i)]);
@@ -241,8 +241,8 @@ function EasyGlitch(canvasNode){
         var r,g,b;
         var Cr,Cb;
         for (i = 0; i < data.length; i += 4){
-            xCell = int((int(i/4) % s.canvas.width)/ cellSize[0]);
-            yCell = int((int(i/4) - int(i/4) % s.canvas.width)/ cellSize[1]);
+            xCell = Math.floor((Math.floor(i/4) % s.canvas.width)/ cellSize[0]);
+            yCell = Math.floor((Math.floor(i/4) - Math.floor(i/4) % s.canvas.width)/ cellSize[1]);
             currCell = xCell + dim[0] * yCell;
             r = data[i];
             g = data[i+1];
