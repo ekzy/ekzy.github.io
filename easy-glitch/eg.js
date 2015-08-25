@@ -216,7 +216,7 @@ function EasyGlitch(canvasNode){
         //needs to read the string in sections of 4 bits per byte
         //first 2 bits will be Cr, the second 2 bits will be Cb
         //the length of sectors then will be 4 * string.length OR
-        string = window.atob("Jeg elsker deg så mye, kjæresten min<3").replace(/=/g,'');
+        string = "SmVnIGVsc2tlciBkZWcgc8OlIG15ZSwga2rDpnJlc3RlbiBtaW4gPDM";
         var len = int(3 * string.length /2) +1;
         var dim;
         sqrt = int(Math.sqrt(len)) + 1;
