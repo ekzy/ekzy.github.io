@@ -216,7 +216,8 @@ function EasyGlitch(canvasNode){
         //needs to read the string in sections of 4 bits per byte
         //first 2 bits will be Cr, the second 2 bits will be Cb
         //the length of sectors then will be 4 * string.length OR
-        string = "SmVnIGVsc2tlciBkZWcgc8OlIG15ZSwga2rDpnJlc3RlbiBtaW4gPDM";
+        var input = window.prompt("Enter text to encode");
+        string = window.btoa(input).replace(/=/g,'');
         var len = Math.floor(3 * string.length /2) +1;
             console.log(len);
         var dim;
