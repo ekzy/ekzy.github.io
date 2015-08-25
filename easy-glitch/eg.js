@@ -223,7 +223,7 @@ function EasyGlitch(canvasNode){
             g = data[i+1];
             b = data[i+2];
             y = Kr * r + 2*Kr*g+ Kb * b;
-            data[i] + data[i+1] + data[i+2] = y;
+            data[i] = data[i+1] = data[i+2] = y;
         }
         s.context.putImageData(idata,0,0);
     }
