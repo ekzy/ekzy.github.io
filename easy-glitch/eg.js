@@ -19,6 +19,7 @@ function EasyGlitch(canvasNode){
  * undoData; image data from currently stored image value, default is null.
  */
     var undoData;
+    var b64s = {"A":[0,0,0],"B":[1,0,0],"C":[2,0,0],"D":[3,0,0],"E":[0,1,0],"F":[1,1,0],"G":[2,1,0],"H":[3,1,0],"I":[0,2,0],"J":[1,2,0],"K":[2,2,0],"L":[3,2,0],"M":[0,3,0],"N":[1,3,0],"O":[2,3,0],"P":[3,3,0],"Q":[0,0,1],"R":[1,0,1],"S":[2,0,1],"T":[3,0,1],"U":[0,1,1],"V":[1,1,1],"W":[2,1,1],"X":[3,1,1],"Y":[0,2,1],"Z":[1,2,1],"a":[2,2,1],"b":[3,2,1],"c":[0,3,1],"d":[1,3,1],"e":[2,3,1],"f":[3,3,1],"g":[0,0,2],"h":[1,0,2],"i":[2,0,2],"j":[3,0,2],"k":[0,1,2],"l":[1,1,2],"m":[2,1,2],"n":[3,1,2],"o":[0,2,2],"p":[1,2,2],"q":[2,2,2],"r":[3,2,2],"s":[0,3,2],"t":[1,3,2],"u":[2,3,2],"v":[3,3,2],"w":[0,0,3],"x":[1,0,3],"y":[2,0,3],"z":[3,0,3],"0":[0,1,3],"1":[1,1,3],"2":[2,1,3],"3":[3,1,3],"4":[0,2,3],"5":[1,2,3],"6":[2,2,3],"7":[3,2,3],"8":[0,3,3],"9":[1,3,3],"+":[2,3,3],"/":[3,3,3],"=":[]}
 /*
  * =======================================================
  * Private functions
@@ -212,18 +213,46 @@ function EasyGlitch(canvasNode){
         s.context.putImageData(idata,0,0);
     }
     s.encode = function(){
-        var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
+        //needs to read the string in sections of 4 bits per byte
+        //first 2 bits will be Cr, the second 2 bits will be Cb
+        //the length of sectors then will be 4 * string.length OR
+        string = window.atob("Jeg elsker deg så mye, kjæresten min<3").replace(/=/g,'');
+        var len = int(3 * string.length /2) +1;
+        var dim;
+        sqrt = int(Math.sqrt(len)) + 1;
+        if (sqrt * (sqrt - 1) < len){
+            dim = [sqrt - 1, sqrt];
+        }else{
+            dim = [sqrt,sqrt];
+        }
+        var cellSize = [int(s.canvas.width/dim[0]),int(s.canvas.height/dim[1])]
+        var strData = [];
+        for(var i = 0; i < string.length; i++){
+            strData = strData.concat(b64s[string.charAt(i)]);
+        }
+        if(strData.length % 2 != 0){
+            strData = strData.concat([0]);
+        }
+        var idata = s.context.getImageData(0,0, s.canvas.width, s.canvas.height);
         var data = idata.data;
         var y;
         var Kb = 0.114;
         var Kr = 0.299;
         var r,g,b;
+        var Cr,Cb;
         for (i = 0; i < data.length; i += 4){
+            xCell = int((int(i/4) % s.canvas.width)/ cellSize[0]);
+            yCell = int((int(i/4) - int(i/4) % s.canvas.width)/ cellSize[1]);
+            currCell = xCell + dim[0] * yCell;
             r = data[i];
             g = data[i+1];
             b = data[i+2];
             y = Kr * r + 2*Kr*g+ Kb * b;
-            data[i] = data[i+1] = data[i+2] = y;
+            Cr = strData[2*currCell]*224/3+16;
+            Cb = strData[2*currCell +1]*224/3 + 16;
+            data[i] = 255/219*(y - 16) + 255/112*0.701*(Cr - 128);
+            data[i+1] = 255/219 * (y - 16) - 255/112*0.886*0.114/0.587*(Cb-128) - 255/112*0.701*0.299/0.587*(Cr - 128);
+            data[i+2] = 255/219 * (y - 16) - 255/112*0.886*(Cb - 128);
         }
         s.context.putImageData(idata,0,0);
     }
