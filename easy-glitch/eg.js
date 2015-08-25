@@ -218,6 +218,7 @@ function EasyGlitch(canvasNode){
         //the length of sectors then will be 4 * string.length OR
         string = "SmVnIGVsc2tlciBkZWcgc8OlIG15ZSwga2rDpnJlc3RlbiBtaW4gPDM";
         var len = Math.floor(3 * string.length /2) +1;
+            console.log(len);
         var dim;
         sqrt = Math.floor(Math.sqrt(len)) + 1;
         if (sqrt * (sqrt - 1) < len){
@@ -225,7 +226,9 @@ function EasyGlitch(canvasNode){
         }else{
             dim = [sqrt,sqrt];
         }
-        var cellSize = [Math.floor(s.canvas.width/dim[0]),Math.floor(s.canvas.height/dim[1])]
+        console.log(dim);
+        var cellSize = [Math.floor(s.canvas.width/dim[0]),Math.floor(s.canvas.height/dim[1])];
+        console.log(cellSize);
         var strData = [];
         for(var i = 0; i < string.length; i++){
             strData = strData.concat(b64s[string.charAt(i)]);
@@ -233,6 +236,8 @@ function EasyGlitch(canvasNode){
         if(strData.length % 2 != 0){
             strData = strData.concat([0]);
         }
+        console.log(strData);
+        console.log(strData.legnth);
         var idata = s.context.getImageData(0,0, s.canvas.width, s.canvas.height);
         var data = idata.data;
         var y;
