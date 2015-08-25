@@ -222,9 +222,9 @@ function EasyGlitch(canvasNode){
         var dim;
         sqrt = Math.floor(Math.sqrt(len)) + 1;
         if (sqrt * (sqrt - 1) < len){
-            dim = [sqrt - 1, sqrt];
+            dim = [sqrt, sqrt];
         }else{
-            dim = [sqrt,sqrt];
+            dim = [sqrt - 1,sqrt];
         }
         console.log(dim);
         var cellSize = [Math.floor(s.canvas.width/dim[0]),Math.floor(s.canvas.height/dim[1])];
@@ -237,7 +237,7 @@ function EasyGlitch(canvasNode){
             strData = strData.concat([0]);
         }
         console.log(strData);
-        console.log(strData.legnth);
+        console.log(strData.length);
         var idata = s.context.getImageData(0,0, s.canvas.width, s.canvas.height);
         var data = idata.data;
         var y;
@@ -247,7 +247,7 @@ function EasyGlitch(canvasNode){
         var Cr,Cb;
         for (i = 0; i < data.length; i += 4){
             xCell = Math.floor((Math.floor(i/4) % s.canvas.width)/ cellSize[0]);
-            yCell = Math.floor((Math.floor(i/4) - Math.floor(i/4) % s.canvas.width)/ cellSize[1]);
+            yCell = Math.floor((Math.floor(i/4) - Math.floor(i/4) % s.canvas.width)/s.canvas.width/ cellSize[1]);
             currCell = xCell + dim[0] * yCell;
             r = data[i];
             g = data[i+1];
