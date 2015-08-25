@@ -214,9 +214,16 @@ function EasyGlitch(canvasNode){
     s.encode = function(){
         var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
         var data = idata.data;
-        var tmp;
+        var y;
+        var Kb = 0.114;
+        var Kr = 0.299;
+        var r,g,b;
         for (i = 0; i < data.length; i += 4){
-            tmp = Math.max(data[i],data[i+1],data[i+2]);
+            r = data[i];
+            g = data[i+1];
+            b = data[i+2];
+            y = Kr * r + 2*Kr*g+ Kb * b;
+            data[i] + data[i+1] + data[i+2] = y;
         }
         s.context.putImageData(idata,0,0);
     }
@@ -242,7 +249,7 @@ function EasyGlitch(canvasNode){
                 s.buffcxt.drawImage(s.sourceImg, s.sx ,s.sy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
                 //then draw the CURRENT tile from the destination spot to the area on the source spot
                 s.context.drawImage(s.sourceImg, s.dx ,s.dy ,s.cSq, s.cSq, s.sx , s.sy, s.cSq, s.cSq);
-                //finally, take the one from the buffer and put it into the destination spot on the source image.
+                //finally, take huthe one from the buffer and put it into the destination spot on the source image.
                 s.context.drawImage(s.buffer, s.sx ,s.sy ,s.cSq, s.cSq, s.dx , s.dy, s.cSq, s.cSq);
             } else {
                 //if no preserve, just take a tile and then put it where it needs to go leaving the source info where it is
