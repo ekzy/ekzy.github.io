@@ -253,7 +253,7 @@ function EasyGlitch(canvasNode){
             r = data[i];
             g = data[i+1];
             b = data[i+2];
-            y = Kr * r + 2*Kr*g+ Kb * b;
+            y =16 +  (65.738 * r + 129.057*g+  25.064* b)/256;
             Cr = strData[2*currCell]*224/3+16;
             Cb = strData[2*currCell +1]*224/3 + 16;
             data[i] = 255/219*(y - 16) + 255/112*0.701*(Cr - 128);
