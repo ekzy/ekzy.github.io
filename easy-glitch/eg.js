@@ -221,7 +221,7 @@ function EasyGlitch(canvasNode){
         var len = Math.floor(3 * string.length /2) +1;
             console.log(len);
         var dim;
-        sqrt = Math.floor(Math.sqrt(len)) + 1;
+        sqrt = Math.floor(Math.sqrt(len));
         if (sqrt * (sqrt - 1) < len){
             dim = [sqrt, sqrt];
         }else{
