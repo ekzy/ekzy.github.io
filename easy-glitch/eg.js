@@ -218,10 +218,10 @@ function EasyGlitch(canvasNode){
         //the length of sectors then will be 4 * string.length OR
         var input = window.prompt("Enter text to encode");
         string = window.btoa(input).replace(/=/g,'');
-        var len = Math.floor(3 * string.length /2) +1;
+        var len = Math.floor(3 * string.length /2);
             console.log(len);
         var dim;
-        sqrt = Math.floor(Math.sqrt(len));
+        sqrt = Math.floor(Math.sqrt(len))+1;
         if (sqrt * (sqrt - 1) < len){
             dim = [sqrt, sqrt];
         }else{
