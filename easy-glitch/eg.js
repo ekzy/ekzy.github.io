@@ -334,7 +334,7 @@ function EasyGlitch(canvasNode){
                     data[i+1] = sinVal * g1 + cosVal * (g-127.5) + 127.5
                     data[i+2] = sinVal * g1 + cosVal * (g-127.5) + 127.5
                 }
-            }.1000/200);
+            },1000/200);
         }else {
             clearInterval(s.interval);
         }
