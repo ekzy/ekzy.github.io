@@ -334,7 +334,7 @@ function EasyGlitch(canvasNode){
                     data[i+2] = Math.floor(Math.sin((b+2)*5*Math.PI/2*(j/24)+b)*127.5 + 127.5);
                 }
                 s.context.putImageData(idata,0,0);
-                j++;
+                j = (j + 1) % Math.floor(100*Math.random()+200);
             },1000/400);
         }else {
             clearInterval(s.interval);
