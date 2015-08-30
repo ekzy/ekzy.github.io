@@ -318,23 +318,28 @@ function EasyGlitch(canvasNode){
         s.playing=!s.playing;
         if(s.playing){
             var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
-            var data = idata.data;
-            var r,g,b,r1,g1,b1
-            var sinVal = Math.sin(5*Math.PI/2*(1/24));
-            var cosVal = Math.cos(5*Math.PI/2*(1/24));
+            s.buffcxt.putImage(idata,0,0);
+            var data
+            var j=0
             s.interval = window.setInterval( function(){
+                idata = s.buffcxt.getImageData(0,0,s.canvas.width,s.canvas.height);
+                data = idata.data;
                 for(var i = 0; i < data.length; i += 4){
                     r = data[i];
                     g = data[i+1];
                     b = data[i+2];
-                    r1 = Math.sqrt(765/4 - r*r + 255*r);
-                    g1 = Math.sqrt(765/4 - g*g + 255*g);
-                    b1 = Math.sqrt(765/4 - b*b + 255*b);
-                    data[i] = Math.floor(sinVal * r1 + cosVal * (r-127.5) + 127.5);
-                    data[i+1] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
-                    data[i+2] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
+                    data[i] = Math.sin(5*Math.PI/2*(j/24)+data[i]);
+                    data[i+1] = Math.sin(5*Math.PI/2*(j/24)+data[i+1]);
+                    data[i+2] = Math.sin(5*Math.PI/2*(j/24)+data[i+3]);
+                    // r1 = Math.sqrt(765/4 - r*r + 255*r);
+                    // g1 = Math.sqrt(765/4 - g*g + 255*g);
+                    // b1 = Math.sqrt(765/4 - b*b + 255*b);
+                    // data[i] = Math.floor(sinVal * r1 + cosVal * (r-127.5) + 127.5);
+                    // data[i+1] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
+                    // data[i+2] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
                 }
                 s.context.putImageData(idata,0,0);
+                j++;
             },1000/200);
         }else {
             clearInterval(s.interval);
