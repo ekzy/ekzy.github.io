@@ -318,7 +318,7 @@ function EasyGlitch(canvasNode){
         s.playing=!s.playing;
         if(s.playing){
             var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
-            s.buffcxt.putImage(idata,0,0);
+            s.buffcxt.putImageData(idata,0,0);
             var data
             var j=0
             s.interval = window.setInterval( function(){
