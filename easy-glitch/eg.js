@@ -319,28 +319,19 @@ function EasyGlitch(canvasNode){
         if(s.playing){
             var idata = s.context.getImageData(0,0,s.canvas.width,s.canvas.height);
             s.buffcxt.putImageData(idata,0,0);
-            var data
-            var j=0
+            var data;
+            var j=0;
             s.interval = window.setInterval( function(){
-                idata = s.buffcxt.getImageData(0,0,s.canvas.width,s.canvas.height);
-                data = idata.data;
+                //idata = s.buffcxt.getImageData(0,0,s.canvas.width,s.canvas.height);
+                //data = idata.data;
                 for(var i = 0; i < data.length; i += 4){
-                    r = data[i];
-                    g = data[i+1];
-                    b = data[i+2];
                     data[i] = Math.floor(Math.sin(5*Math.PI/2*(j/24)+Math.asin((data[i]-127.5)/127.5))*127.5 + 127.5);
                     data[i+1] = Math.floor(Math.sin(5*Math.PI/2*(j/24)+Math.asin((data[i+1]-127.5)/127.5))*127.5 + 127.5);
                     data[i+2] = Math.floor(Math.sin(5*Math.PI/2*(j/24)+Math.asin((data[i+2]-127.5)/127.5))*127.5 + 127.5);
-                    // r1 = Math.sqrt(765/4 - r*r + 255*r);
-                    // g1 = Math.sqrt(765/4 - g*g + 255*g);
-                    // b1 = Math.sqrt(765/4 - b*b + 255*b);
-                    // data[i] = Math.floor(sinVal * r1 + cosVal * (r-127.5) + 127.5);
-                    // data[i+1] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
-                    // data[i+2] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
                 }
                 s.context.putImageData(idata,0,0);
                 j++;
-            },1000/200);
+            },1000/400);
         }else {
             clearInterval(s.interval);
         }
