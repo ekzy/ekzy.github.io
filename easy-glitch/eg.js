@@ -322,7 +322,7 @@ function EasyGlitch(canvasNode){
             var r,g,b,r1,g1,b1
             var sinVal = Math.sin(5*Math.PI/2*(1/24));
             var cosVal = Math.cos(5*Math.PI/2*(1/24));
-            s.interval = window.setInerval( function(){
+            s.interval = window.setInterval( function(){
                 for(var i = 0; i < data.length; i += 4){
                     r = data[i];
                     g = data[i+1];
