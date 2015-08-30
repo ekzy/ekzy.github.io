@@ -330,9 +330,9 @@ function EasyGlitch(canvasNode){
                     r1 = Math.sqrt(765/4 - r*r + 255*r);
                     g1 = Math.sqrt(765/4 - g*g + 255*g);
                     b1 = Math.sqrt(765/4 - b*b + 255*b);
-                    data[i] = sinVal * r1 + cosVal * (r-127.5) + 127.5
-                    data[i+1] = sinVal * g1 + cosVal * (g-127.5) + 127.5
-                    data[i+2] = sinVal * g1 + cosVal * (g-127.5) + 127.5
+                    data[i] = Math.floor(sinVal * r1 + cosVal * (r-127.5) + 127.5);
+                    data[i+1] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
+                    data[i+2] = Math.floor(sinVal * g1 + cosVal * (g-127.5) + 127.5);
                 }
             },1000/200);
         }else {
