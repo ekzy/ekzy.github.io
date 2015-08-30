@@ -330,7 +330,7 @@ function EasyGlitch(canvasNode){
                     g = Math.asin((data[i+1]-127.5)/127.5);
                     b = Math.asin((data[i+2]-127.5)/127.5);
                     data[i] = Math.floor(Math.sin((r+2)*5*Math.PI/2*(j/24)+r)*127.5 + 127.5);
-                    data[i+1] = Math.floor(Math.sin((g+2)5*Math.PI/2*(j/24)+g)*127.5 + 127.5);
+                    data[i+1] = Math.floor(Math.sin((g+2)*5*Math.PI/2*(j/24)+g)*127.5 + 127.5);
                     data[i+2] = Math.floor(Math.sin((b+2)*5*Math.PI/2*(j/24)+b)*127.5 + 127.5);
                 }
                 s.context.putImageData(idata,0,0);
