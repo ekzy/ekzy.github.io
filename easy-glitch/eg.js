@@ -326,12 +326,12 @@ function EasyGlitch(canvasNode){
                 idata = s.buffcxt.getImageData(0,0,s.canvas.width,s.canvas.height);
                 data = idata.data;
                 for(var i = 0; i < data.length; i += 4){
-                    r = Math.asin((data[i]-127.5)/127.5);
-                    g = Math.asin((data[i+1]-127.5)/127.5);
-                    b = Math.asin((data[i+2]-127.5)/127.5);
-                    data[i] = Math.floor(Math.sin((r+2)*5*Math.PI/2*(j/24)+r)*127.5 + 127.5);
-                    data[i+1] = Math.floor(Math.sin((g+2)*5*Math.PI/2*(j/24)+g)*127.5 + 127.5);
-                    data[i+2] = Math.floor(Math.sin((b+2)*5*Math.PI/2*(j/24)+b)*127.5 + 127.5);
+                    r = Math.asin( (data[i] - 127.5 ) / 127.5 );
+                    g = Math.asin( (data[i+1] - 127.5) / 127.5 );
+                    b = Math.asin( (data[i+2] - 127.5) / 127.5 );
+                    data[i]   = Math.floor( Math.sin( ( r + 2 ) * 5 * Math.PI / 2 * ( j / 24 ) + r ) * 127.5 + 127.5 );
+                    data[i+1] = Math.floor( Math.sin( ( g + 2 ) * 5 * Math.PI / 2 * ( j / 24 ) + g ) * 127.5 + 127.5 );
+                    data[i+2] = Math.floor( Math.sin( ( b + 2 ) * 5 * Math.PI / 2 * ( j / 24 ) + b ) * 127.5 + 127.5);
                 }
                 s.context.putImageData(idata,0,0);
                 j = (j + 1) % Math.floor(100*Math.random()+200);
