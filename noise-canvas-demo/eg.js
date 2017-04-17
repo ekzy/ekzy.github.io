@@ -373,13 +373,13 @@ function EasyGlitch(canvasNode){
  * changes base image to Barack Obama
  */
     s.makeObama = function(){
-        s.img.src="/obama.jpg";
+        s.img.src="./obama.jpg";
     }
 /*
  * changes the base image back to Hong Kong
  */
     s.makeHK = function(){
-        s.img.src="/hk.jpg";
+        s.img.src="./hk.jpg";
     }
 /*
  * Private Function Init, initalizes all public and handlers
@@ -399,7 +399,7 @@ function EasyGlitch(canvasNode){
         s.canvas.onmousemove = s.canvas.onmousdown = s.drawScramble;
         s.canvas.onmousedown = s.setUndo;
         s.img.onload = s.loadImage;
-        s.img.src = "../hk.jpg";
+        s.img.src = "./hk.jpg";
         s.cSq = 0;
     }
 
